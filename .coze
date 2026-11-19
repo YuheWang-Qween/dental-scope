@@ -1,0 +1,25 @@
+[project]
+sub_id = "05be639b"
+name = "dental-scope"
+requires = ["nodejs-24"]
+project_type = "web"
+version = "0.1.9"
+entrypoint = "index.html"
+
+[preview]
+preview_enable = "enabled"
+
+[dev]
+build = ["bash", "scripts/preview-build.sh"]
+run = ["bash", "scripts/preview-run.sh"]
+
+[deploy]
+build = ["bash", "scripts/build.sh"]
+run = ["bash", "scripts/run.sh"]
+
+[deploy.profile]
+kind = "service"
+flavor = "web"
+
+[subprojects]
+path = ["."]

@@ -12,3 +12,4 @@ tools/pipeline/.cache/
 __pycache__/
 *.pyc
 *.tsbuildinfo
+.preview
