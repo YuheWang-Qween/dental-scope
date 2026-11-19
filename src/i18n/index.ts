@@ -10,11 +10,12 @@ import type { Lang } from './lang';
 import { sv } from './sv';
 import { es } from './es';
 import { la } from './la';
+import { zh } from './zh';
 
 export type { Messages } from './en';
 export * from './lang';
 
-export const MESSAGES: Record<Lang, Messages> = { en, sv, de, es, la };
+export const MESSAGES: Record<Lang, Messages> = { en, sv, de, es, la, zh };
 
 /** Messages for the active language (outside React). */
 export const t = (): Messages => MESSAGES[getState().lang];

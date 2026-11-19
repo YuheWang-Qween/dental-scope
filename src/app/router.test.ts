@@ -69,7 +69,7 @@ describe('credits popup deep links', () => {
   it('accepts the root and translated links, with or without a trailing slash', () => {
     expect(parsePath('/credits', registry)).toMatchObject({ credits: true });
     expect(parsePath('/credits/', registry)).toMatchObject({ credits: true });
-    for (const lang of ['sv', 'de', 'es', 'la']) {
+    for (const lang of ['sv', 'de', 'es', 'la', 'zh']) {
       expect(parsePath(`/credits/${lang}/`, registry)).toMatchObject({ credits: true, lang });
       expect(parsePath(`/credits/${lang}`, registry)).toMatchObject({ credits: true, lang });
     }
@@ -97,7 +97,7 @@ describe('credits popup deep links', () => {
 
   it('opens in place and returns to the same selected, dissected tooth when closed', () => {
     url = new URL('https://example.org/tooth/36/dissect?lang=en');
-    setState({ selectedId: 'tooth-36', dissectFdi: 36 });
+    setState({ lang: 'en', selectedId: 'tooth-36', dissectFdi: 36 });
     stop = startRouter(engine, registry);
     // The tooth route applies asynchronously; its engine mock has applied the scene.
     return Promise.resolve().then(() => {
@@ -109,6 +109,15 @@ describe('credits popup deep links', () => {
       expect(url.pathname).toBe('/tooth/36/dissect');
       expect(getState()).toMatchObject({ creditsOpen: false, selectedId: 'tooth-36', dissectFdi: 36 });
     });
+  });
+
+  it('keeps a shared language link in sync with a later manual choice', () => {
+    url = new URL('https://example.org/?lang=zh&view=1');
+    stop = startRouter(engine, registry);
+    actions.setLang('en');
+    expect(url.searchParams.get('lang')).toBe('en');
+    expect(url.searchParams.get('view')).toBe('1');
+    expect(pushState).not.toHaveBeenCalled();
   });
 
   it('closes and reopens with history navigation, then updates the link when language changes', () => {

@@ -77,6 +77,7 @@ export function SearchPanel() {
   };
 
   const onKey = (e: React.KeyboardEvent) => {
+    if (e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setActive((a) => Math.min(results.length - 1, a + 1));
@@ -137,7 +138,7 @@ export function SearchPanel() {
                   role="option"
                   aria-selected={i === active}
                   className={`ds-search-result${i === active ? ' is-active' : ''}`}
-                  onPointerEnter={() => setActive(i)}
+                  onPointerMove={(event) => { if (event.pointerType === 'mouse' && (event.movementX || event.movementY)) setActive(i); }}
                   onClick={() => void choose(r.id)}
                 >
                   <span className="ds-dot" style={{ background: catDef?.color ?? 'var(--faint)' }} aria-hidden="true" />

@@ -76,6 +76,26 @@ export const GUIDE_TEXT: Record<Lang, GuideText> = {
     structureTail: 'anatomy in 3D',
     draft: 'This text is a draft and has not yet been reviewed by a dental professional. Educational reference only, not for diagnosis or treatment.',
   },
+  zh: {
+    teethSlug: 'teeth',
+    anatomySlug: 'anatomy',
+    teeth: '牙齿',
+    anatomy: '解剖结构',
+    open3d: '在三维图谱中打开 →',
+    numbers: '牙位编号',
+    functionTitle: '功能',
+    clinicalTitle: '临床意义',
+    neighbours: '相邻和对应牙齿',
+    mesial: '近中邻牙',
+    distal: '远中邻牙',
+    otherSide: '对侧同名牙',
+    antagonist: '对颌牙',
+    related: '相关结构',
+    anatomyTitle: '形态与解剖',
+    toothTail: '牙体三维解剖',
+    structureTail: '三维解剖',
+    draft: '本文为教学草稿，尚未经口腔专业人员审核。仅供学习参考，不用于诊断或治疗。',
+  },
   sv: {
     teethSlug: 'tander',
     anatomySlug: 'anatomi',
@@ -225,20 +245,23 @@ const BY_ID = new Map(GUIDE_SUBJECTS.map((s) => [s.id, s]));
 /** Path of a subject's guide page in a language, below the site root (ends with '/'). */
 export function guidePath(s: GuideSubject, lang: Lang): string {
   const T = GUIDE_TEXT[lang];
-  const slug = s.fdi !== undefined ? `${s.fdi}-${slugify(s.names[lang], lang)}` : slugify(s.names[lang], lang);
+  const slug = lang === 'zh' ? (s.fdi?.toString() ?? s.contentKey) : s.fdi !== undefined ? `${s.fdi}-${slugify(s.names[lang], lang)}` : slugify(s.names[lang], lang);
   return `${langPrefix(lang)}${s.fdi !== undefined ? T.teethSlug : T.anatomySlug}/${slug}/`;
 }
 
 /* ------------------------------------------------------------------ indexing */
 
 const entryOf = (s: GuideSubject, lang: Lang): Entry | undefined => (CONTENT[lang] as Record<string, Entry>)[s.contentKey];
+const chineseWords = new Intl.Segmenter('zh', { granularity: 'word' });
 
 /** Words of the page's own text in that language. */
 export function wordCount(s: GuideSubject, lang: Lang): number {
   const e = entryOf(s, lang);
   if (!e) return 0;
   const parts = [e.summary, e.anatomy, e.function, e.clinical, e.location, e.roots, e.canals, e.eruption, ...(e.facts ?? []).map((f) => `${f.label} ${f.value}`)];
-  return parts.filter(Boolean).join(' ').split(/\s+/).filter(Boolean).length;
+  const text = parts.filter(Boolean).join(' ');
+  if (lang === 'zh') return [...chineseWords.segment(text)].filter(segment => segment.isWordLike).length;
+  return text.split(/\s+/).filter(Boolean).length;
 }
 
 export const isIndexable = (s: GuideSubject, lang: Lang) => wordCount(s, lang) >= MIN_INDEX_WORDS;
@@ -250,12 +273,13 @@ export interface GuidePage extends PageMeta {
 }
 
 /** Search snippet: the page's own text, led by the name when that text is too short to stand alone. */
-function snippet(name: string, text: string, open3d: string): string {
+function snippet(name: string, text: string, open3d: string, lang: Lang): string {
   let t = text.replace(/\s+/g, ' ').trim();
-  if (t.length < 70) t = `${name}: ${t ? `${t} ` : ''}${open3d}.`;
+  if (t.length < 70) t = lang === 'zh' ? `${name}：${t}在三维牙齿解剖图谱中查看此结构的位置与形态。` : `${name}: ${t ? `${t} ` : ''}${open3d}.`;
   if (t.length <= 158) return t;
   const cut = t.slice(0, 157);
-  return `${cut.slice(0, cut.lastIndexOf(' '))}…`;
+  const boundary = cut.lastIndexOf(' ');
+  return `${/\p{Script=Han}/u.test(cut) || boundary < 0 ? cut : cut.slice(0, boundary)}…`;
 }
 
 export function guidePage(s: GuideSubject, lang: Lang): GuidePage {
@@ -269,7 +293,7 @@ export function guidePage(s: GuideSubject, lang: Lang): GuidePage {
     path: guidePath(s, lang),
     title,
     // a short summary alone makes a weak search snippet: continue with the function
-    description: snippet(name, [entryOf(s, lang)?.summary, entryOf(s, lang)?.function].filter(Boolean).join(' '), T.open3d.replace(' →', '')),
+    description: snippet(name, [entryOf(s, lang)?.summary, entryOf(s, lang)?.function].filter(Boolean).join(lang === 'zh' ? '' : ' '), T.open3d.replace(' →', ''), lang),
     lang,
     alternates,
     crumbs: [{ name: s.fdi !== undefined ? T.teeth : T.anatomy, path: `${aboutPath(lang)}#${s.fdi !== undefined ? 'teeth' : 'glossary'}` }],
@@ -313,7 +337,7 @@ export function guideHtml(page: GuidePage, head: string, base: string): string {
   const T = GUIDE_TEXT[lang];
   const A = ABOUT_TEXT[lang];
   const e = entryOf(s, lang) ?? {};
-  const q = lang === 'en' ? '' : `?lang=${lang}`;
+  const q = `?lang=${lang}`;
   const link = (id: string) => {
     const t = BY_ID.get(id);
     return t ? `<a href="${base}${guidePath(t, lang)}">${esc(t.names[lang])}</a>` : '';

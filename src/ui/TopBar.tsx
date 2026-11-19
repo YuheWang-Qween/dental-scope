@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { NUMBERING_LABEL, NUMBERING_SHORT, NUMBERING_SYSTEMS } from '../anatomy/notation';
 import { REPO_URL } from '../app/repo';
-import { useT } from '../i18n';
+import { useLang, useT } from '../i18n';
 import { actions, useApp } from '../state/store';
 import { MODES, QUIZ_MODE, switchMode } from '../modes/modes';
 import { useServices } from './context';
@@ -11,10 +11,11 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Identity() {
   const m = useT();
+  const lang = useLang();
   return (
     <>
       <header className="ds-identity">
-        <h1 className="ds-title">Dental Scope</h1>
+        <h1 className="ds-title">{lang === 'zh' ? '牙齿解剖图谱' : 'Dental Scope'}</h1>
         <p className="ds-credit">
           <button type="button" aria-haspopup="dialog" onClick={() => actions.openCredits(true)}>{m.credits}</button>
           {REPO_URL && (

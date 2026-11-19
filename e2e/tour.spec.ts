@@ -6,6 +6,7 @@ declare global {
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
+    if (!localStorage.getItem('ds.lang')) localStorage.setItem('ds.lang', 'en');
     // Keep playback and geometry live; skip costly software rasterization for UI checks.
     const drawElements = Object.getOwnPropertyDescriptor(WebGL2RenderingContext.prototype, 'drawElements')!;
     const drawArrays = Object.getOwnPropertyDescriptor(WebGL2RenderingContext.prototype, 'drawArrays')!;

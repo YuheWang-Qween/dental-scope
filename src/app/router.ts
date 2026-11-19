@@ -10,7 +10,7 @@ import type { Structure } from '../anatomy/types';
 import type { Engine } from '../engine/Engine';
 import { actions, getState, store } from '../state/store';
 import { documentTitle } from './seo';
-import type { Lang } from '../i18n';
+import { isLang, type Lang } from '../i18n/lang';
 import { creditsPath } from './credits';
 
 /** Tool name stays the same in every interface language. */
@@ -49,8 +49,8 @@ export interface Route {
 
 export function parsePath(path: string, registry: Registry): Route {
   const p = !HASH && path.startsWith(BASE) ? path.slice(BASE.length) : path;
-  const credits = /^\/credits(?:\/(sv|de|es|la))?\/?$/.exec(p);
-  if (credits) return { id: null, dissect: false, credits: true, lang: credits[1] as Lang | undefined };
+  const credits = /^\/credits(?:\/([a-z]+))?\/?$/.exec(p);
+  if (credits && (!credits[1] || isLang(credits[1]))) return { id: null, dissect: false, credits: true, lang: credits[1] as Lang | undefined };
   let m = /^\/tooth\/(\d{2})(\/dissect)?\/?$/.exec(p);
   if (m && registry.get(`tooth-${m[1]}`)) return { id: `tooth-${m[1]}`, dissect: !!m[2] };
   m = /^\/structure\/([a-z0-9-]+)\/?$/.exec(p);
@@ -135,6 +135,13 @@ export function startRouter(engine: Engine, registry: Registry): () => void {
   const unsub = store.subscribe((s, p) => {
     if (s.selectedId !== p.selectedId || s.lang !== p.lang) syncTitle(s.selectedId);
     if (applying || navigating) return;
+    if (WRITE_URL && s.lang !== p.lang) {
+      const query = new URLSearchParams(location.search);
+      if (isLang(query.get('lang')) && query.get('lang') !== s.lang) {
+        query.set('lang', s.lang);
+        history.replaceState(null, '', `${location.pathname}?${query}${location.hash}`);
+      }
+    }
     if (s.creditsOpen) {
       if (!p.creditsOpen || s.lang !== p.lang) writeUrl(`${HASH ? '' : BASE}/${creditsPath(s.lang)}`, !p.creditsOpen);
       return;

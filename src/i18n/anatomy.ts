@@ -35,6 +35,16 @@ export const TYPE_NAMES: Record<Lang, Record<ToothType, string>> = {
     'second-molar': 'second molar',
     'third-molar': 'third molar',
   },
+  zh: {
+    'central-incisor': '中切牙',
+    'lateral-incisor': '侧切牙',
+    canine: '尖牙',
+    'first-premolar': '第一前磨牙',
+    'second-premolar': '第二前磨牙',
+    'first-molar': '第一磨牙',
+    'second-molar': '第二磨牙',
+    'third-molar': '第三磨牙',
+  },
   sv: {
     'central-incisor': 'central incisiv',
     'lateral-incisor': 'lateral incisiv',
@@ -88,6 +98,16 @@ export const TYPE_PLURALS: Record<Lang, Record<ToothType, string>> = {
     'first-molar': 'First molars',
     'second-molar': 'Second molars',
     'third-molar': 'Third molars',
+  },
+  zh: {
+    'central-incisor': '中切牙',
+    'lateral-incisor': '侧切牙',
+    canine: '尖牙',
+    'first-premolar': '第一前磨牙',
+    'second-premolar': '第二前磨牙',
+    'first-molar': '第一磨牙',
+    'second-molar': '第二磨牙',
+    'third-molar': '第三磨牙',
   },
   sv: {
     'central-incisor': 'Centrala incisiver',
@@ -145,6 +165,7 @@ const ES_SIDE: Record<Side, string> = { right: 'derecho', left: 'izquierdo' };
 /** Tooth type in one arch, no side ("Maxillary first molar"). */
 export function archTypeName(type: ToothType, arch: Arch, lang: Lang): string {
   const t = TYPE_NAMES[lang][type];
+  if (lang === 'zh') return `${arch === 'maxillary' ? '上颌' : '下颌'}${t}`;
   if (lang === 'sv') return cap(`${t} i ${arch === 'maxillary' ? 'överkäken' : 'underkäken'}`);
   if (lang === 'de') return `${t} im ${arch === 'maxillary' ? 'Oberkiefer' : 'Unterkiefer'}`;
   if (lang === 'es') return cap(`${t} ${ES_ARCH[arch]}`);
@@ -155,6 +176,7 @@ export function archTypeName(type: ToothType, arch: Arch, lang: Lang): string {
 /** Full tooth name ("Mandibular left first molar"). */
 export function toothNameIn(type: ToothType, arch: Arch, side: Side, lang: Lang): string {
   const t = TYPE_NAMES[lang][type];
+  if (lang === 'zh') return `${side === 'right' ? '右' : '左'}${arch === 'maxillary' ? '上' : '下'}${t}`;
   if (lang === 'sv') return `${side === 'right' ? 'Höger' : 'Vänster'} ${t} i ${arch === 'maxillary' ? 'överkäken' : 'underkäken'}`;
   if (lang === 'de') return `${t} im ${arch === 'maxillary' ? 'Oberkiefer' : 'Unterkiefer'} ${side === 'right' ? 'rechts' : 'links'}`;
   if (lang === 'es') return cap(`${t} ${ES_ARCH[arch]} ${ES_SIDE[side]}`);
@@ -170,6 +192,8 @@ export function toothSearchAliases(type: ToothType, arch: Arch, fdi: number): st
   const es = TYPE_NAMES.es[type];
   const la = TYPE_NAMES.la[type];
   const out = [
+    TYPE_NAMES.zh[type], archTypeName(type, arch, 'zh'), `${fdi}号牙`,
+    ...(type.endsWith('incisor') ? ['门牙'] : type === 'canine' ? ['犬牙', '虎牙'] : type === 'third-molar' ? ['智齿'] : []),
     `${sv} i ${up ? 'överkäken' : 'underkäken'}`,
     `${up ? 'övre' : 'nedre'} ${sv}`,
     sv,
@@ -237,6 +261,23 @@ export const PART_NAMES: Record<Lang, Record<PartKey, string>> = {
     'root-canals': 'Root canals',
     cej: 'Cementoenamel junction',
     apex: 'Root apex',
+  },
+  zh: {
+    crown: '牙冠',
+    root: '牙根',
+    roots: '牙根',
+    enamel: '牙釉质',
+    dentin: '牙本质',
+    'dentin-coronal': '冠部牙本质',
+    'dentin-radicular': '根部牙本质',
+    cementum: '牙骨质',
+    pulp: '牙髓',
+    'pulp-chamber': '髓室',
+    pdl: '牙周膜',
+    'root-canal': '根管',
+    'root-canals': '根管',
+    cej: '釉牙骨质界',
+    apex: '根尖',
   },
   sv: {
     crown: 'Krona',
@@ -308,13 +349,14 @@ export const PART_NAMES: Record<Lang, Record<PartKey, string>> = {
   },
 };
 
-const allLangs = (f: (l: Lang) => string): Names => ({ en: f('en'), sv: f('sv'), de: f('de'), es: f('es'), la: f('la') });
+const allLangs = (f: (l: Lang) => string): Names => ({ en: f('en'), sv: f('sv'), de: f('de'), es: f('es'), la: f('la'), zh: f('zh') });
 
 export const partNames = (k: PartKey): Names => allLangs((l) => PART_NAMES[l][k]);
 
 /** Short 3D-label names of tooth parts. */
 export const PART_SHORT: Record<Lang, Record<'pdl' | 'cej' | 'apex' | 'apical-foramen' | 'pulp-horn' | 'canal', string>> = {
   en: { pdl: 'PDL', cej: 'CEJ', apex: 'Apex', 'apical-foramen': 'Apical foramen', 'pulp-horn': 'Pulp horn', canal: 'Canal' },
+  zh: { pdl: '牙周膜', cej: '釉牙骨质界', apex: '根尖', 'apical-foramen': '根尖孔', 'pulp-horn': '髓角', canal: '根管' },
   sv: { pdl: 'PDL', cej: 'ECG', apex: 'Apex', 'apical-foramen': 'Foramen apicale', 'pulp-horn': 'Pulpahorn', canal: 'Kanal' },
   de: { pdl: 'Desmodont', cej: 'SZG', apex: 'Apex', 'apical-foramen': 'Foramen apicale', 'pulp-horn': 'Pulpahorn', canal: 'Kanal' },
   es: { pdl: 'LPD', cej: 'UAC', apex: 'Ápice', 'apical-foramen': 'Foramen apical', 'pulp-horn': 'Cuerno pulpar', canal: 'Conducto' },
@@ -322,8 +364,9 @@ export const PART_SHORT: Record<Lang, Record<'pdl' | 'cej' | 'apex' | 'apical-fo
 };
 export const partShort = (k: keyof (typeof PART_SHORT)['en']): Names => allLangs((l) => PART_SHORT[l][k]);
 
-export const pulpHornNames = (n: string): Names => ({ en: `Pulp horn ${n}`, sv: `Pulpahorn ${n}`, de: `Pulpahorn ${n}`, es: `Cuerno pulpar ${n}`, la: `Cornu pulpae ${n}` });
+export const pulpHornNames = (n: string): Names => ({ en: `Pulp horn ${n}`, sv: `Pulpahorn ${n}`, de: `Pulpahorn ${n}`, es: `Cuerno pulpar ${n}`, la: `Cornu pulpae ${n}`, zh: `髓角 ${n}` });
 export const apicalForamenNames = (abbr: Names): Names => ({
+  zh: `根尖孔（${abbr.zh}）`,
   en: `Apical foramen (${abbr.en})`,
   sv: `Foramen apicale (${abbr.sv})`,
   de: `Foramen apicale (${abbr.de})`,
@@ -353,13 +396,13 @@ export const PART_ALIASES: Record<string, string[]> = {
 
 /** Root position words: Swedish, German (feminine, for "Wurzel"), Spanish (masculine) and Latin. */
 const ROOT_WORD: Record<string, Tr> = {
-  mesial: { sv: 'Mesial', de: 'Mesiale', es: 'mesial', la: 'mesialis' },
-  distal: { sv: 'Distal', de: 'Distale', es: 'distal', la: 'distalis' },
-  buccal: { sv: 'Buckal', de: 'Bukkale', es: 'vestibular', la: 'buccalis' },
-  palatal: { sv: 'Palatinal', de: 'Palatinale', es: 'palatino', la: 'palatinalis' },
-  lingual: { sv: 'Lingual', de: 'Linguale', es: 'lingual', la: 'lingualis' },
-  mesiobuccal: { sv: 'Mesiobuckal', de: 'Mesiobukkale', es: 'mesiovestibular', la: 'mesiobuccalis' },
-  distobuccal: { sv: 'Distobuckal', de: 'Distobukkale', es: 'distovestibular', la: 'distobuccalis' },
+  mesial: { sv: 'Mesial', de: 'Mesiale', es: 'mesial', la: 'mesialis', zh: '近中' },
+  distal: { sv: 'Distal', de: 'Distale', es: 'distal', la: 'distalis', zh: '远中' },
+  buccal: { sv: 'Buckal', de: 'Bukkale', es: 'vestibular', la: 'buccalis', zh: '颊侧' },
+  palatal: { sv: 'Palatinal', de: 'Palatinale', es: 'palatino', la: 'palatinalis', zh: '腭侧' },
+  lingual: { sv: 'Lingual', de: 'Linguale', es: 'lingual', la: 'lingualis', zh: '舌侧' },
+  mesiobuccal: { sv: 'Mesiobuckal', de: 'Mesiobukkale', es: 'mesiovestibular', la: 'mesiobuccalis', zh: '近中颊侧' },
+  distobuccal: { sv: 'Distobuckal', de: 'Distobukkale', es: 'distovestibular', la: 'distobuccalis', zh: '远中颊侧' },
 };
 
 /** Spanish adjective for a feminine noun (la raíz): "palatino" → "palatina". */
@@ -370,7 +413,7 @@ export function rootNames(label: string): Names | undefined {
   if (label === 'single') return partNames('root');
   const w = ROOT_WORD[label];
   if (!w) return undefined;
-  return { en: `${cap(label)} root`, sv: `${w.sv} rot`, de: `${w.de} Wurzel`, es: `Raíz ${esFem(w.es)}`, la: `Radix ${w.la}` };
+  return { en: `${cap(label)} root`, sv: `${w.sv} rot`, de: `${w.de} Wurzel`, es: `Raíz ${esFem(w.es)}`, la: `Radix ${w.la}`, zh: `${w.zh}根` };
 }
 
 /** German adjective ending for a masculine noun (der Kanal): "Mesiale" → "Mesialer". */
@@ -384,8 +427,11 @@ const esAbbr = (abbr: string) => abbr.replace(/B/g, 'V');
  * its index (buccal first) and the arch.
  */
 export function canalNames(root: string, n: number, i: number, arch: Arch): { names: Names; abbr: Names } {
-  const abbrs = (a: string): Names => ({ en: a, sv: a, de: a, es: esAbbr(a), la: a });
-  const canal = (en: string, sv: string, de: string, es: string, la: string, abbr: string) => ({ names: { en, sv, de, es, la }, abbr: abbrs(abbr) });
+  const abbrs = (a: string): Names => ({ en: a, sv: a, de: a, es: esAbbr(a), la: a, zh: a });
+  const canal = (en: string, sv: string, de: string, es: string, la: string, abbr: string) => {
+    const labels: Record<string, string> = { M: '近中根管', D: '远中根管', B: '颊侧根管', P: '腭侧根管', L: '舌侧根管', MB: '近中颊根管', ML: '近中舌根管', DB: '远中颊根管', DL: '远中舌根管', MB1: '第一近中颊根管（MB1）', MB2: '第二近中颊根管（MB2）' };
+    return { names: { en, sv, de, es, la, zh: labels[abbr] ?? `根管（${abbr}）` }, abbr: abbrs(abbr) };
+  };
   if (root === 'single') return { names: partNames('root-canal'), abbr: partShort('canal') };
   if (n === 1) {
     const w = ROOT_WORD[root];
@@ -416,107 +462,107 @@ export function canalNames(root: string, n: number, i: number, arch: Arch): { na
 /** Names by exact structure id. */
 const EXACT: Record<string, Tr> = {
   ...PARANASAL_NAMES,
-  'trigeminal-nerves': { sv: 'Trigeminusnerver (V)', de: 'Trigeminusnerven (V)', es: 'Nervios trigéminos (V)', la: 'Nervi trigemini (V)' },
-  'facial-nerves': { sv: 'Facialisnerver (VII)', de: 'Gesichtsnerven (VII)', es: 'Nervios faciales (VII)', la: 'Nervi faciales (VII)' },
-  'lower-cranial-nerves': { sv: 'Kranialnerver IX, X och XII', de: 'Hirnnerven IX, X und XII', es: 'Nervios craneales IX, X y XII', la: 'Nervi craniales IX, X et XII' },
-  'dental-anatomy': { sv: 'Tandanatomi', de: 'Zahnanatomie' , es: 'Anatomía dental', la: 'Anatomia dentalis' },
-  maxilla: { sv: 'Överkäke', de: 'Oberkiefer' , es: 'Maxilar', la: 'Maxillae' },
-  'maxillary-alveolar-process': { sv: 'Överkäkens alveolarutskott', de: 'Alveolarfortsatz des Oberkiefers' , es: 'Apófisis alveolar del maxilar', la: 'Processus alveolaris maxillae' },
-  'maxillary-sinus': { sv: 'Bihålor i överkäken', de: 'Kieferhöhlen', es: 'Senos maxilares', la: 'Sinus maxillares' },
-  'maxillary-dentition': { sv: 'Överkäkens tandbåge', de: 'Oberer Zahnbogen' , es: 'Arcada dentaria superior', la: 'Arcus dentalis superior' },
-  'upper-right-quadrant': { sv: 'Övre högra kvadranten', de: 'Oberer rechter Quadrant' , es: 'Cuadrante superior derecho', la: 'Quadrans superior dexter' },
-  'upper-left-quadrant': { sv: 'Övre vänstra kvadranten', de: 'Oberer linker Quadrant' , es: 'Cuadrante superior izquierdo', la: 'Quadrans superior sinister' },
-  'lower-left-quadrant': { sv: 'Nedre vänstra kvadranten', de: 'Unterer linker Quadrant' , es: 'Cuadrante inferior izquierdo', la: 'Quadrans inferior sinister' },
-  'lower-right-quadrant': { sv: 'Nedre högra kvadranten', de: 'Unterer rechter Quadrant' , es: 'Cuadrante inferior derecho', la: 'Quadrans inferior dexter' },
-  mandible: { sv: 'Underkäke', de: 'Unterkiefer' , es: 'Mandíbula', la: 'Mandibula' },
-  'mandible-body': { sv: 'Underkäkens kropp och grenar', de: 'Unterkieferkörper und Unterkieferäste' , es: 'Cuerpo y ramas de la mandíbula', la: 'Corpus et rami mandibulae' },
-  'mandibular-alveolar-process': { sv: 'Underkäkens alveolarutskott', de: 'Alveolarfortsatz des Unterkiefers' , es: 'Porción alveolar de la mandíbula', la: 'Pars alveolaris mandibulae' },
-  'mandibular-dentition': { sv: 'Underkäkens tandbåge', de: 'Unterer Zahnbogen' , es: 'Arcada dentaria inferior', la: 'Arcus dentalis inferior' },
-  periodontium: { sv: 'Parodontium', de: 'Parodontium' , es: 'Periodonto', la: 'Periodontium' },
-  gingiva: { sv: 'Gingiva', de: 'Gingiva' , es: 'Encía', la: 'Gingiva' },
-  'gingiva-upper': { sv: 'Gingiva i överkäken', de: 'Gingiva des Oberkiefers' , es: 'Encía superior', la: 'Gingiva maxillaris' },
-  'gingiva-lower': { sv: 'Gingiva i underkäken', de: 'Gingiva des Unterkiefers' , es: 'Encía inferior', la: 'Gingiva mandibularis' },
-  neurovascular: { sv: 'Nerver och kärl', de: 'Nerven und Gefäße' , es: 'Nervios y vasos', la: 'Nervi et vasa' },
-  nerves: { sv: 'Nerver', de: 'Nerven' , es: 'Nervios', la: 'Nervi' },
-  'mandibular-nerve-branches': { sv: 'Grenar av n. mandibularis (V3)', de: 'Äste des N. mandibularis (V3)' , es: 'Ramas del nervio mandibular (V3)', la: 'Rami nervi mandibularis (V3)' },
-  'maxillary-nerve-branches': { sv: 'Grenar av n. maxillaris (V2)', de: 'Äste des N. maxillaris (V2)' , es: 'Ramas del nervio maxilar (V2)', la: 'Rami nervi maxillaris (V2)' },
-  vessels: { sv: 'Blodkärl', de: 'Blutgefäße' , es: 'Vasos sanguíneos', la: 'Vasa sanguinea' },
-  'arterial-supply': { sv: 'Artärer', de: 'Arterien' , es: 'Arterias', la: 'Arteriae' },
-  'venous-drainage': { sv: 'Vener', de: 'Venen' , es: 'Venas', la: 'Venae' },
-  tmj: { sv: 'Käklederna', de: 'Kiefergelenke' , es: 'Articulaciones temporomandibulares', la: 'Articulationes temporomandibulares' },
-  skull: { sv: 'Skalle (kontext)', de: 'Schädel (Kontext)' , es: 'Cráneo (contexto)', la: 'Cranium (contextus)' },
-  'frontal-bone': { sv: 'Pannben', de: 'Stirnbein' , es: 'Hueso frontal', la: 'Os frontale' },
-  'occipital-bone': { sv: 'Nackben', de: 'Hinterhauptsbein' , es: 'Hueso occipital', la: 'Os occipitale' },
-  'sphenoid-bone': { sv: 'Kilben', de: 'Keilbein' , es: 'Hueso esfenoides', la: 'Os sphenoidale' },
-  'ethmoid-bone': { sv: 'Silben', de: 'Siebbein' , es: 'Hueso etmoides', la: 'Os ethmoidale' },
-  vomer: { sv: 'Plogben', de: 'Pflugscharbein' , es: 'Vómer', la: 'Vomer' },
-  'hyoid-bone': { sv: 'Tungben', de: 'Zungenbein' , es: 'Hueso hioides', la: 'Os hyoideum' },
-  muscles: { sv: 'Tuggmuskler och muskler runt munnen', de: 'Kaumuskeln und Muskeln um den Mund' , es: 'Músculos de la masticación y peribucales', la: 'Musculi masticatorii et musculi circum os' },
-  'orbicularis-oris': { sv: 'Musculus orbicularis oris', de: 'Musculus orbicularis oris' , es: 'Músculo orbicular de la boca', la: 'Musculus orbicularis oris' },
+  'trigeminal-nerves': { sv: 'Trigeminusnerver (V)', de: 'Trigeminusnerven (V)', es: 'Nervios trigéminos (V)', la: 'Nervi trigemini (V)', zh: '三叉神经（Ⅴ）' },
+  'facial-nerves': { sv: 'Facialisnerver (VII)', de: 'Gesichtsnerven (VII)', es: 'Nervios faciales (VII)', la: 'Nervi faciales (VII)', zh: '面神经（Ⅶ）' },
+  'lower-cranial-nerves': { sv: 'Kranialnerver IX, X och XII', de: 'Hirnnerven IX, X und XII', es: 'Nervios craneales IX, X y XII', la: 'Nervi craniales IX, X et XII', zh: '第Ⅸ、Ⅹ、Ⅻ对脑神经' },
+  'dental-anatomy': { sv: 'Tandanatomi', de: 'Zahnanatomie' , es: 'Anatomía dental', la: 'Anatomia dentalis', zh: '口腔解剖' },
+  maxilla: { sv: 'Överkäke', de: 'Oberkiefer' , es: 'Maxilar', la: 'Maxillae', zh: '上颌骨' },
+  'maxillary-alveolar-process': { sv: 'Överkäkens alveolarutskott', de: 'Alveolarfortsatz des Oberkiefers' , es: 'Apófisis alveolar del maxilar', la: 'Processus alveolaris maxillae', zh: '上颌牙槽突' },
+  'maxillary-sinus': { sv: 'Bihålor i överkäken', de: 'Kieferhöhlen', es: 'Senos maxilares', la: 'Sinus maxillares', zh: '双侧上颌窦' },
+  'maxillary-dentition': { sv: 'Överkäkens tandbåge', de: 'Oberer Zahnbogen' , es: 'Arcada dentaria superior', la: 'Arcus dentalis superior', zh: '上牙弓' },
+  'upper-right-quadrant': { sv: 'Övre högra kvadranten', de: 'Oberer rechter Quadrant' , es: 'Cuadrante superior derecho', la: 'Quadrans superior dexter', zh: '右上象限' },
+  'upper-left-quadrant': { sv: 'Övre vänstra kvadranten', de: 'Oberer linker Quadrant' , es: 'Cuadrante superior izquierdo', la: 'Quadrans superior sinister', zh: '左上象限' },
+  'lower-left-quadrant': { sv: 'Nedre vänstra kvadranten', de: 'Unterer linker Quadrant' , es: 'Cuadrante inferior izquierdo', la: 'Quadrans inferior sinister', zh: '左下象限' },
+  'lower-right-quadrant': { sv: 'Nedre högra kvadranten', de: 'Unterer rechter Quadrant' , es: 'Cuadrante inferior derecho', la: 'Quadrans inferior dexter', zh: '右下象限' },
+  mandible: { sv: 'Underkäke', de: 'Unterkiefer' , es: 'Mandíbula', la: 'Mandibula', zh: '下颌骨' },
+  'mandible-body': { sv: 'Underkäkens kropp och grenar', de: 'Unterkieferkörper und Unterkieferäste' , es: 'Cuerpo y ramas de la mandíbula', la: 'Corpus et rami mandibulae', zh: '下颌体与下颌支' },
+  'mandibular-alveolar-process': { sv: 'Underkäkens alveolarutskott', de: 'Alveolarfortsatz des Unterkiefers' , es: 'Porción alveolar de la mandíbula', la: 'Pars alveolaris mandibulae', zh: '下颌牙槽部' },
+  'mandibular-dentition': { sv: 'Underkäkens tandbåge', de: 'Unterer Zahnbogen' , es: 'Arcada dentaria inferior', la: 'Arcus dentalis inferior', zh: '下牙弓' },
+  periodontium: { sv: 'Parodontium', de: 'Parodontium' , es: 'Periodonto', la: 'Periodontium', zh: '牙周组织' },
+  gingiva: { sv: 'Gingiva', de: 'Gingiva' , es: 'Encía', la: 'Gingiva', zh: '牙龈' },
+  'gingiva-upper': { sv: 'Gingiva i överkäken', de: 'Gingiva des Oberkiefers' , es: 'Encía superior', la: 'Gingiva maxillaris', zh: '上颌牙龈' },
+  'gingiva-lower': { sv: 'Gingiva i underkäken', de: 'Gingiva des Unterkiefers' , es: 'Encía inferior', la: 'Gingiva mandibularis', zh: '下颌牙龈' },
+  neurovascular: { sv: 'Nerver och kärl', de: 'Nerven und Gefäße' , es: 'Nervios y vasos', la: 'Nervi et vasa', zh: '神经与血管' },
+  nerves: { sv: 'Nerver', de: 'Nerven' , es: 'Nervios', la: 'Nervi', zh: '神经' },
+  'mandibular-nerve-branches': { sv: 'Grenar av n. mandibularis (V3)', de: 'Äste des N. mandibularis (V3)' , es: 'Ramas del nervio mandibular (V3)', la: 'Rami nervi mandibularis (V3)', zh: '下颌神经分支（V3）' },
+  'maxillary-nerve-branches': { sv: 'Grenar av n. maxillaris (V2)', de: 'Äste des N. maxillaris (V2)' , es: 'Ramas del nervio maxilar (V2)', la: 'Rami nervi maxillaris (V2)', zh: '上颌神经分支（V2）' },
+  vessels: { sv: 'Blodkärl', de: 'Blutgefäße' , es: 'Vasos sanguíneos', la: 'Vasa sanguinea', zh: '血管' },
+  'arterial-supply': { sv: 'Artärer', de: 'Arterien' , es: 'Arterias', la: 'Arteriae', zh: '动脉供血' },
+  'venous-drainage': { sv: 'Vener', de: 'Venen' , es: 'Venas', la: 'Venae', zh: '静脉回流' },
+  tmj: { sv: 'Käklederna', de: 'Kiefergelenke' , es: 'Articulaciones temporomandibulares', la: 'Articulationes temporomandibulares', zh: '双侧颞下颌关节' },
+  skull: { sv: 'Skalle (kontext)', de: 'Schädel (Kontext)' , es: 'Cráneo (contexto)', la: 'Cranium (contextus)', zh: '颅骨（参照）' },
+  'frontal-bone': { sv: 'Pannben', de: 'Stirnbein' , es: 'Hueso frontal', la: 'Os frontale', zh: '额骨' },
+  'occipital-bone': { sv: 'Nackben', de: 'Hinterhauptsbein' , es: 'Hueso occipital', la: 'Os occipitale', zh: '枕骨' },
+  'sphenoid-bone': { sv: 'Kilben', de: 'Keilbein' , es: 'Hueso esfenoides', la: 'Os sphenoidale', zh: '蝶骨' },
+  'ethmoid-bone': { sv: 'Silben', de: 'Siebbein' , es: 'Hueso etmoides', la: 'Os ethmoidale', zh: '筛骨' },
+  vomer: { sv: 'Plogben', de: 'Pflugscharbein' , es: 'Vómer', la: 'Vomer', zh: '犁骨' },
+  'hyoid-bone': { sv: 'Tungben', de: 'Zungenbein' , es: 'Hueso hioides', la: 'Os hyoideum', zh: '舌骨' },
+  muscles: { sv: 'Tuggmuskler och muskler runt munnen', de: 'Kaumuskeln und Muskeln um den Mund' , es: 'Músculos de la masticación y peribucales', la: 'Musculi masticatorii et musculi circum os', zh: '咀嚼肌与口周肌' },
+  'orbicularis-oris': { sv: 'Musculus orbicularis oris', de: 'Musculus orbicularis oris' , es: 'Músculo orbicular de la boca', la: 'Musculus orbicularis oris', zh: '口轮匝肌' },
 };
 
 /** Names of paired structures by base id (the id without -right / -left); the side follows in brackets. */
 const SIDED: Record<string, Tr> = {
   ...FEEDBACK_NAMES,
   ...PARANASAL_NAMES,
-  maxilla: { sv: 'Maxilla', de: 'Maxilla' , es: 'Maxilar', la: 'Maxilla' },
-  'maxillary-alveolar-process': { sv: 'Överkäkens alveolarutskott', de: 'Alveolarfortsatz des Oberkiefers' , es: 'Apófisis alveolar del maxilar', la: 'Processus alveolaris maxillae' },
-  'maxillary-sinus': { sv: 'Bihåla i överkäken (sinus maxillaris)', de: 'Kieferhöhle', es: 'Seno maxilar', la: 'Sinus maxillaris' },
-  'mandibular-condyle': { sv: 'Underkäkens ledhuvud', de: 'Unterkieferköpfchen' , es: 'Cóndilo mandibular', la: 'Caput mandibulae' },
-  'mandibular-foramen': { sv: 'Foramen mandibulae', de: 'Foramen mandibulae' , es: 'Agujero mandibular', la: 'Foramen mandibulae' },
-  'mental-foramen': { sv: 'Foramen mentale', de: 'Foramen mentale' , es: 'Agujero mentoniano', la: 'Foramen mentale' },
-  'inferior-alveolar-nerve': { sv: 'Nervus alveolaris inferior', de: 'Nervus alveolaris inferior' , es: 'Nervio alveolar inferior', la: 'Nervus alveolaris inferior' },
-  'mental-nerve': { sv: 'Nervus mentalis', de: 'Nervus mentalis' , es: 'Nervio mentoniano', la: 'Nervus mentalis' },
-  'incisive-nerve': { sv: 'Nervus incisivus', de: 'Nervus incisivus' , es: 'Nervio incisivo', la: 'Nervus incisivus' },
-  'lingual-nerve': { sv: 'Nervus lingualis', de: 'Nervus lingualis' , es: 'Nervio lingual', la: 'Nervus lingualis' },
-  'infraorbital-nerve': { sv: 'Nervus infraorbitalis', de: 'Nervus infraorbitalis' , es: 'Nervio infraorbitario', la: 'Nervus infraorbitalis' },
-  'posterior-superior-alveolar-nerve': { sv: 'Rami alveolares superiores posteriores', de: 'Rami alveolares superiores posteriores' , es: 'Nervios alveolares superiores posteriores', la: 'Rami alveolares superiores posteriores' },
-  'middle-superior-alveolar-nerve': { sv: 'Ramus alveolaris superior medius', de: 'Ramus alveolaris superior medius' , es: 'Nervio alveolar superior medio', la: 'Ramus alveolaris superior medius' },
-  'anterior-superior-alveolar-nerve': { sv: 'Rami alveolares superiores anteriores', de: 'Rami alveolares superiores anteriores' , es: 'Nervios alveolares superiores anteriores', la: 'Rami alveolares superiores anteriores' },
-  'greater-palatine-nerve': { sv: 'Nervus palatinus major', de: 'Nervus palatinus major', es: 'Nervio palatino mayor', la: 'Nervus palatinus major' },
-  'nasopalatine-nerve': { sv: 'Nervus nasopalatinus', de: 'Nervus nasopalatinus', es: 'Nervio nasopalatino', la: 'Nervus nasopalatinus' },
-  'inferior-alveolar-artery': { sv: 'Arteria alveolaris inferior', de: 'Arteria alveolaris inferior' , es: 'Arteria alveolar inferior', la: 'Arteria alveolaris inferior' },
-  'inferior-alveolar-vein': { sv: 'Vena alveolaris inferior', de: 'Vena alveolaris inferior' , es: 'Vena alveolar inferior', la: 'Vena alveolaris inferior' },
-  'trigeminal-nerve': { sv: 'Nervus trigeminus (V)', de: 'Nervus trigeminus (V)' , es: 'Nervio trigémino (V)', la: 'Nervus trigeminus (V)' },
-  'mandibular-nerve': { sv: 'Nervus mandibularis (V3)', de: 'Nervus mandibularis (V3)' , es: 'Nervio mandibular (V3)', la: 'Nervus mandibularis (V3)' },
-  'maxillary-nerve': { sv: 'Nervus maxillaris (V2)', de: 'Nervus maxillaris (V2)' , es: 'Nervio maxilar (V2)', la: 'Nervus maxillaris (V2)' },
-  'buccal-nerve': { sv: 'Nervus buccalis', de: 'Nervus buccalis' , es: 'Nervio bucal', la: 'Nervus buccalis' },
-  'external-carotid-artery': { sv: 'Arteria carotis externa', de: 'Arteria carotis externa' , es: 'Arteria carótida externa', la: 'Arteria carotis externa' },
-  'maxillary-artery': { sv: 'Arteria maxillaris', de: 'Arteria maxillaris' , es: 'Arteria maxilar', la: 'Arteria maxillaris' },
-  'posterior-superior-alveolar-artery': { sv: 'Arteria alveolaris superior posterior', de: 'Arteria alveolaris superior posterior' , es: 'Arteria alveolar superior posterior', la: 'Arteria alveolaris superior posterior' },
-  'descending-palatine-artery': { sv: 'Arteria palatina descendens', de: 'Arteria palatina descendens' , es: 'Arteria palatina descendente', la: 'Arteria palatina descendens' },
-  'buccal-artery': { sv: 'Arteria buccalis', de: 'Arteria buccalis' , es: 'Arteria bucal', la: 'Arteria buccalis' },
-  'facial-artery': { sv: 'Arteria facialis', de: 'Arteria facialis' , es: 'Arteria facial', la: 'Arteria facialis' },
-  'pterygoid-plexus': { sv: 'Plexus pterygoideus', de: 'Plexus pterygoideus' , es: 'Plexo venoso pterigoideo', la: 'Plexus pterygoideus' },
-  'maxillary-vein': { sv: 'Vena maxillaris', de: 'Vena maxillaris' , es: 'Vena maxilar', la: 'Vena maxillaris' },
-  'retromandibular-vein': { sv: 'Vena retromandibularis', de: 'Vena retromandibularis' , es: 'Vena retromandibular', la: 'Vena retromandibularis' },
-  'facial-vein': { sv: 'Vena facialis', de: 'Vena facialis' , es: 'Vena facial', la: 'Vena facialis' },
-  'internal-jugular-vein': { sv: 'Vena jugularis interna', de: 'Vena jugularis interna' , es: 'Vena yugular interna', la: 'Vena jugularis interna' },
-  tmj: { sv: 'Käkled', de: 'Kiefergelenk' , es: 'Articulación temporomandibular', la: 'Articulatio temporomandibularis' },
-  'articular-disc': { sv: 'Ledskiva', de: 'Discus articularis' , es: 'Disco articular', la: 'Discus articularis' },
-  'articular-fossa': { sv: 'Fossa mandibularis', de: 'Fossa mandibularis' , es: 'Fosa mandibular', la: 'Fossa mandibularis' },
-  'temporal-bone': { sv: 'Tinningben', de: 'Schläfenbein' , es: 'Hueso temporal', la: 'Os temporale' },
-  'zygomatic-bone': { sv: 'Okben', de: 'Jochbein' , es: 'Hueso cigomático', la: 'Os zygomaticum' },
-  'palatine-bone': { sv: 'Gomben', de: 'Gaumenbein' , es: 'Hueso palatino', la: 'Os palatinum' },
-  'parietal-bone': { sv: 'Hjässben', de: 'Scheitelbein' , es: 'Hueso parietal', la: 'Os parietale' },
-  'nasal-bone': { sv: 'Näsben', de: 'Nasenbein' , es: 'Hueso nasal', la: 'Os nasale' },
-  'lacrimal-bone': { sv: 'Tårben', de: 'Tränenbein' , es: 'Hueso lagrimal', la: 'Os lacrimale' },
-  'inferior-nasal-concha': { sv: 'Nedre näsmussla', de: 'Untere Nasenmuschel' , es: 'Cornete nasal inferior', la: 'Concha nasalis inferior' },
-  masseter: { sv: 'Musculus masseter', de: 'Musculus masseter' , es: 'Músculo masetero', la: 'Musculus masseter' },
-  'masseter-superficial': { sv: 'M. masseter, ytlig del', de: 'M. masseter, oberflächlicher Anteil' , es: 'Masetero, porción superficial', la: 'M. masseter, pars superficialis' },
-  'masseter-deep': { sv: 'M. masseter, djup del', de: 'M. masseter, tiefer Anteil' , es: 'Masetero, porción profunda', la: 'M. masseter, pars profunda' },
-  'lateral-pterygoid': { sv: 'Musculus pterygoideus lateralis', de: 'Musculus pterygoideus lateralis' , es: 'Músculo pterigoideo lateral', la: 'Musculus pterygoideus lateralis' },
-  'lateral-pterygoid-upper': { sv: 'M. pterygoideus lateralis, övre huvud', de: 'M. pterygoideus lateralis, oberer Kopf' , es: 'Pterigoideo lateral, cabeza superior', la: 'M. pterygoideus lateralis, caput superius' },
-  'lateral-pterygoid-lower': { sv: 'M. pterygoideus lateralis, nedre huvud', de: 'M. pterygoideus lateralis, unterer Kopf' , es: 'Pterigoideo lateral, cabeza inferior', la: 'M. pterygoideus lateralis, caput inferius' },
-  temporalis: { sv: 'Musculus temporalis', de: 'Musculus temporalis' , es: 'Músculo temporal', la: 'Musculus temporalis' },
-  'medial-pterygoid': { sv: 'Musculus pterygoideus medialis', de: 'Musculus pterygoideus medialis' , es: 'Músculo pterigoideo medial', la: 'Musculus pterygoideus medialis' },
-  buccinator: { sv: 'Musculus buccinator', de: 'Musculus buccinator' , es: 'Músculo buccinador', la: 'Musculus buccinator' },
-  mentalis: { sv: 'Musculus mentalis', de: 'Musculus mentalis' , es: 'Músculo mentoniano', la: 'Musculus mentalis' },
+  maxilla: { sv: 'Maxilla', de: 'Maxilla' , es: 'Maxilar', la: 'Maxilla', zh: '上颌骨' },
+  'maxillary-alveolar-process': { sv: 'Överkäkens alveolarutskott', de: 'Alveolarfortsatz des Oberkiefers' , es: 'Apófisis alveolar del maxilar', la: 'Processus alveolaris maxillae', zh: '上颌牙槽突' },
+  'maxillary-sinus': { sv: 'Bihåla i överkäken (sinus maxillaris)', de: 'Kieferhöhle', es: 'Seno maxilar', la: 'Sinus maxillaris', zh: '上颌窦' },
+  'mandibular-condyle': { sv: 'Underkäkens ledhuvud', de: 'Unterkieferköpfchen' , es: 'Cóndilo mandibular', la: 'Caput mandibulae', zh: '下颌髁突' },
+  'mandibular-foramen': { sv: 'Foramen mandibulae', de: 'Foramen mandibulae' , es: 'Agujero mandibular', la: 'Foramen mandibulae', zh: '下颌孔' },
+  'mental-foramen': { sv: 'Foramen mentale', de: 'Foramen mentale' , es: 'Agujero mentoniano', la: 'Foramen mentale', zh: '颏孔' },
+  'inferior-alveolar-nerve': { sv: 'Nervus alveolaris inferior', de: 'Nervus alveolaris inferior' , es: 'Nervio alveolar inferior', la: 'Nervus alveolaris inferior', zh: '下牙槽神经' },
+  'mental-nerve': { sv: 'Nervus mentalis', de: 'Nervus mentalis' , es: 'Nervio mentoniano', la: 'Nervus mentalis', zh: '颏神经' },
+  'incisive-nerve': { sv: 'Nervus incisivus', de: 'Nervus incisivus' , es: 'Nervio incisivo', la: 'Nervus incisivus', zh: '切牙神经' },
+  'lingual-nerve': { sv: 'Nervus lingualis', de: 'Nervus lingualis' , es: 'Nervio lingual', la: 'Nervus lingualis', zh: '舌神经' },
+  'infraorbital-nerve': { sv: 'Nervus infraorbitalis', de: 'Nervus infraorbitalis' , es: 'Nervio infraorbitario', la: 'Nervus infraorbitalis', zh: '眶下神经' },
+  'posterior-superior-alveolar-nerve': { sv: 'Rami alveolares superiores posteriores', de: 'Rami alveolares superiores posteriores' , es: 'Nervios alveolares superiores posteriores', la: 'Rami alveolares superiores posteriores', zh: '上牙槽后神经' },
+  'middle-superior-alveolar-nerve': { sv: 'Ramus alveolaris superior medius', de: 'Ramus alveolaris superior medius' , es: 'Nervio alveolar superior medio', la: 'Ramus alveolaris superior medius', zh: '上牙槽中神经' },
+  'anterior-superior-alveolar-nerve': { sv: 'Rami alveolares superiores anteriores', de: 'Rami alveolares superiores anteriores' , es: 'Nervios alveolares superiores anteriores', la: 'Rami alveolares superiores anteriores', zh: '上牙槽前神经' },
+  'greater-palatine-nerve': { sv: 'Nervus palatinus major', de: 'Nervus palatinus major', es: 'Nervio palatino mayor', la: 'Nervus palatinus major', zh: '腭大神经' },
+  'nasopalatine-nerve': { sv: 'Nervus nasopalatinus', de: 'Nervus nasopalatinus', es: 'Nervio nasopalatino', la: 'Nervus nasopalatinus', zh: '鼻腭神经' },
+  'inferior-alveolar-artery': { sv: 'Arteria alveolaris inferior', de: 'Arteria alveolaris inferior' , es: 'Arteria alveolar inferior', la: 'Arteria alveolaris inferior', zh: '下牙槽动脉' },
+  'inferior-alveolar-vein': { sv: 'Vena alveolaris inferior', de: 'Vena alveolaris inferior' , es: 'Vena alveolar inferior', la: 'Vena alveolaris inferior', zh: '下牙槽静脉' },
+  'trigeminal-nerve': { sv: 'Nervus trigeminus (V)', de: 'Nervus trigeminus (V)' , es: 'Nervio trigémino (V)', la: 'Nervus trigeminus (V)', zh: '三叉神经（Ⅴ）' },
+  'mandibular-nerve': { sv: 'Nervus mandibularis (V3)', de: 'Nervus mandibularis (V3)' , es: 'Nervio mandibular (V3)', la: 'Nervus mandibularis (V3)', zh: '下颌神经（V3）' },
+  'maxillary-nerve': { sv: 'Nervus maxillaris (V2)', de: 'Nervus maxillaris (V2)' , es: 'Nervio maxilar (V2)', la: 'Nervus maxillaris (V2)', zh: '上颌神经（V2）' },
+  'buccal-nerve': { sv: 'Nervus buccalis', de: 'Nervus buccalis' , es: 'Nervio bucal', la: 'Nervus buccalis', zh: '颊神经' },
+  'external-carotid-artery': { sv: 'Arteria carotis externa', de: 'Arteria carotis externa' , es: 'Arteria carótida externa', la: 'Arteria carotis externa', zh: '颈外动脉' },
+  'maxillary-artery': { sv: 'Arteria maxillaris', de: 'Arteria maxillaris' , es: 'Arteria maxilar', la: 'Arteria maxillaris', zh: '上颌动脉' },
+  'posterior-superior-alveolar-artery': { sv: 'Arteria alveolaris superior posterior', de: 'Arteria alveolaris superior posterior' , es: 'Arteria alveolar superior posterior', la: 'Arteria alveolaris superior posterior', zh: '上牙槽后动脉' },
+  'descending-palatine-artery': { sv: 'Arteria palatina descendens', de: 'Arteria palatina descendens' , es: 'Arteria palatina descendente', la: 'Arteria palatina descendens', zh: '腭降动脉' },
+  'buccal-artery': { sv: 'Arteria buccalis', de: 'Arteria buccalis' , es: 'Arteria bucal', la: 'Arteria buccalis', zh: '颊动脉' },
+  'facial-artery': { sv: 'Arteria facialis', de: 'Arteria facialis' , es: 'Arteria facial', la: 'Arteria facialis', zh: '面动脉' },
+  'pterygoid-plexus': { sv: 'Plexus pterygoideus', de: 'Plexus pterygoideus' , es: 'Plexo venoso pterigoideo', la: 'Plexus pterygoideus', zh: '翼静脉丛' },
+  'maxillary-vein': { sv: 'Vena maxillaris', de: 'Vena maxillaris' , es: 'Vena maxilar', la: 'Vena maxillaris', zh: '上颌静脉' },
+  'retromandibular-vein': { sv: 'Vena retromandibularis', de: 'Vena retromandibularis' , es: 'Vena retromandibular', la: 'Vena retromandibularis', zh: '下颌后静脉' },
+  'facial-vein': { sv: 'Vena facialis', de: 'Vena facialis' , es: 'Vena facial', la: 'Vena facialis', zh: '面静脉' },
+  'internal-jugular-vein': { sv: 'Vena jugularis interna', de: 'Vena jugularis interna' , es: 'Vena yugular interna', la: 'Vena jugularis interna', zh: '颈内静脉' },
+  tmj: { sv: 'Käkled', de: 'Kiefergelenk' , es: 'Articulación temporomandibular', la: 'Articulatio temporomandibularis', zh: '颞下颌关节' },
+  'articular-disc': { sv: 'Ledskiva', de: 'Discus articularis' , es: 'Disco articular', la: 'Discus articularis', zh: '关节盘' },
+  'articular-fossa': { sv: 'Fossa mandibularis', de: 'Fossa mandibularis' , es: 'Fosa mandibular', la: 'Fossa mandibularis', zh: '下颌窝' },
+  'temporal-bone': { sv: 'Tinningben', de: 'Schläfenbein' , es: 'Hueso temporal', la: 'Os temporale', zh: '颞骨' },
+  'zygomatic-bone': { sv: 'Okben', de: 'Jochbein' , es: 'Hueso cigomático', la: 'Os zygomaticum', zh: '颧骨' },
+  'palatine-bone': { sv: 'Gomben', de: 'Gaumenbein' , es: 'Hueso palatino', la: 'Os palatinum', zh: '腭骨' },
+  'parietal-bone': { sv: 'Hjässben', de: 'Scheitelbein' , es: 'Hueso parietal', la: 'Os parietale', zh: '顶骨' },
+  'nasal-bone': { sv: 'Näsben', de: 'Nasenbein' , es: 'Hueso nasal', la: 'Os nasale', zh: '鼻骨' },
+  'lacrimal-bone': { sv: 'Tårben', de: 'Tränenbein' , es: 'Hueso lagrimal', la: 'Os lacrimale', zh: '泪骨' },
+  'inferior-nasal-concha': { sv: 'Nedre näsmussla', de: 'Untere Nasenmuschel' , es: 'Cornete nasal inferior', la: 'Concha nasalis inferior', zh: '下鼻甲' },
+  masseter: { sv: 'Musculus masseter', de: 'Musculus masseter' , es: 'Músculo masetero', la: 'Musculus masseter', zh: '咬肌' },
+  'masseter-superficial': { sv: 'M. masseter, ytlig del', de: 'M. masseter, oberflächlicher Anteil' , es: 'Masetero, porción superficial', la: 'M. masseter, pars superficialis', zh: '咬肌浅部' },
+  'masseter-deep': { sv: 'M. masseter, djup del', de: 'M. masseter, tiefer Anteil' , es: 'Masetero, porción profunda', la: 'M. masseter, pars profunda', zh: '咬肌深部' },
+  'lateral-pterygoid': { sv: 'Musculus pterygoideus lateralis', de: 'Musculus pterygoideus lateralis' , es: 'Músculo pterigoideo lateral', la: 'Musculus pterygoideus lateralis', zh: '翼外肌' },
+  'lateral-pterygoid-upper': { sv: 'M. pterygoideus lateralis, övre huvud', de: 'M. pterygoideus lateralis, oberer Kopf' , es: 'Pterigoideo lateral, cabeza superior', la: 'M. pterygoideus lateralis, caput superius', zh: '翼外肌上头' },
+  'lateral-pterygoid-lower': { sv: 'M. pterygoideus lateralis, nedre huvud', de: 'M. pterygoideus lateralis, unterer Kopf' , es: 'Pterigoideo lateral, cabeza inferior', la: 'M. pterygoideus lateralis, caput inferius', zh: '翼外肌下头' },
+  temporalis: { sv: 'Musculus temporalis', de: 'Musculus temporalis' , es: 'Músculo temporal', la: 'Musculus temporalis', zh: '颞肌' },
+  'medial-pterygoid': { sv: 'Musculus pterygoideus medialis', de: 'Musculus pterygoideus medialis' , es: 'Músculo pterigoideo medial', la: 'Musculus pterygoideus medialis', zh: '翼内肌' },
+  buccinator: { sv: 'Musculus buccinator', de: 'Musculus buccinator' , es: 'Músculo buccinador', la: 'Musculus buccinator', zh: '颊肌' },
+  mentalis: { sv: 'Musculus mentalis', de: 'Musculus mentalis' , es: 'Músculo mentoniano', la: 'Musculus mentalis', zh: '颏肌' },
 };
 
 const SIDE_WORD: Record<Side, Tr> = {
-  right: { sv: 'höger', de: 'rechts', es: 'lado derecho', la: 'lateris dextri' },
-  left: { sv: 'vänster', de: 'links', es: 'lado izquierdo', la: 'lateris sinistri' },
+  right: { sv: 'höger', de: 'rechts', es: 'lado derecho', la: 'lateris dextri', zh: '右侧' },
+  left: { sv: 'vänster', de: 'links', es: 'lado izquierdo', la: 'lateris sinistri', zh: '左侧' },
 };
 
 /** Names of a non-tooth structure; English comes from its definition. Undefined when a translation is missing. */
@@ -527,7 +573,7 @@ export function structureNames(id: string, en: string): Names | undefined {
   const sided = m ? SIDED[m[1]] : undefined;
   if (!m || !sided) return undefined;
   const side = SIDE_WORD[m[2] as Side];
-  return { en, sv: `${sided.sv} (${side.sv})`, de: `${sided.de} (${side.de})`, es: `${sided.es} (${side.es})`, la: `${sided.la} (${side.la})` };
+  return { en, sv: `${sided.sv} (${side.sv})`, de: `${sided.de} (${side.de})`, es: `${sided.es} (${side.es})`, la: `${sided.la} (${side.la})`, zh: `${side.zh}${sided.zh}` };
 }
 
 /**
@@ -541,15 +587,15 @@ export function baseStructureNames(key: string, en: string, sided: boolean): Nam
 
 /** Short 3D-label names of non-tooth structures, where English has one (by base id). */
 export const STRUCTURE_SHORT: Record<string, Tr> = {
-  'inferior-alveolar-nerve': { sv: 'N. alv. inf.', de: 'N. alv. inf.' , es: 'N. alv. inf.', la: 'N. alv. inf.' },
-  'posterior-superior-alveolar-nerve': { sv: 'Rr. alv. sup. post.', de: 'Rr. alv. sup. post.' , es: 'N. alv. sup. post.', la: 'Rr. alv. sup. post.' },
-  'middle-superior-alveolar-nerve': { sv: 'R. alv. sup. med.', de: 'R. alv. sup. med.' , es: 'N. alv. sup. medio', la: 'R. alv. sup. med.' },
-  'anterior-superior-alveolar-nerve': { sv: 'Rr. alv. sup. ant.', de: 'Rr. alv. sup. ant.' , es: 'N. alv. sup. ant.', la: 'Rr. alv. sup. ant.' },
-  'greater-palatine-nerve': { sv: 'N. pal. maj.', de: 'N. pal. maj.', es: 'N. pal. mayor', la: 'N. pal. maj.' },
-  'nasopalatine-nerve': { sv: 'N. nasopal.', de: 'N. nasopal.', es: 'N. nasopal.', la: 'N. nasopal.' },
-  'trigeminal-nerve': { sv: 'N. V', de: 'N. V' , es: 'Par V', la: 'N. V' },
-  'mandibular-nerve': { sv: 'V3', de: 'V3' , es: 'V3', la: 'V3' },
-  'maxillary-nerve': { sv: 'V2', de: 'V2' , es: 'V2', la: 'V2' },
+  'inferior-alveolar-nerve': { sv: 'N. alv. inf.', de: 'N. alv. inf.' , es: 'N. alv. inf.', la: 'N. alv. inf.', zh: '下牙槽神经' },
+  'posterior-superior-alveolar-nerve': { sv: 'Rr. alv. sup. post.', de: 'Rr. alv. sup. post.' , es: 'N. alv. sup. post.', la: 'Rr. alv. sup. post.', zh: '上牙槽后神经' },
+  'middle-superior-alveolar-nerve': { sv: 'R. alv. sup. med.', de: 'R. alv. sup. med.' , es: 'N. alv. sup. medio', la: 'R. alv. sup. med.', zh: '上牙槽中神经' },
+  'anterior-superior-alveolar-nerve': { sv: 'Rr. alv. sup. ant.', de: 'Rr. alv. sup. ant.' , es: 'N. alv. sup. ant.', la: 'Rr. alv. sup. ant.', zh: '上牙槽前神经' },
+  'greater-palatine-nerve': { sv: 'N. pal. maj.', de: 'N. pal. maj.', es: 'N. pal. mayor', la: 'N. pal. maj.', zh: '腭大神经' },
+  'nasopalatine-nerve': { sv: 'N. nasopal.', de: 'N. nasopal.', es: 'N. nasopal.', la: 'N. nasopal.', zh: '鼻腭神经' },
+  'trigeminal-nerve': { sv: 'N. V', de: 'N. V' , es: 'Par V', la: 'N. V', zh: '三叉神经' },
+  'mandibular-nerve': { sv: 'V3', de: 'V3' , es: 'V3', la: 'V3', zh: 'V3' },
+  'maxillary-nerve': { sv: 'V2', de: 'V2' , es: 'V2', la: 'V2', zh: 'V2' },
 };
 
 /** Search terms in the other languages by structure (base) id: everyday words, Latin names, abbreviations. */

@@ -14,6 +14,8 @@ import teethEs from './es/teeth.json' with { type: 'json' };
 import structuresEs from './es/structures.json' with { type: 'json' };
 import teethLa from './la/teeth.json' with { type: 'json' };
 import structuresLa from './la/structures.json' with { type: 'json' };
+import teethZh from './zh/teeth.json' with { type: 'json' };
+import structuresZh from './zh/structures.json' with { type: 'json' };
 import { feedbackAnatomy } from './feedbackAnatomy.ts';
 import { supportingAnatomy } from './supportingAnatomy.ts';
 import { developmentAnatomy } from './developmentAnatomy.ts';
@@ -72,10 +74,12 @@ export const CONTENT: Record<Lang, Record<string, RawEntry>> = {
   de: db(teethDe, structuresDe, 'de'),
   es: db(teethEs, structuresEs, 'es'),
   la: db(teethLa, structuresLa, 'la'),
+  zh: db(teethZh, structuresZh, 'zh'),
 };
 const DB = CONTENT.en;
 
 const FACT_LABELS: Record<Lang, { roots: string; canals: string; eruption: string }> = {
+  zh: { roots: '常见牙根', canals: '常见根管', eruption: '通常萌出时间' },
   en: { roots: 'Typical roots', canals: 'Typical canals', eruption: 'Typical eruption' },
   sv: { roots: 'Typiska rötter', canals: 'Typiska kanaler', eruption: 'Typisk eruptionsålder' },
   de: { roots: 'Typische Wurzeln', canals: 'Typische Kanäle', eruption: 'Typischer Durchbruch' },

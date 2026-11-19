@@ -24,13 +24,13 @@ describe('page metadata', () => {
   it('describes the site as an educational reference, not a clinical tool', () => {
     expect(HOME.title).toMatch(/Dental Scope/);
     expect(HOME.description.length).toBeLessThanOrEqual(160);
-    expect(HOME.description).toMatch(/educational/i);
+    expect(HOME.description).toContain('仅供教学参考');
     expect(`${HOME.title} ${HOME.description}`).not.toMatch(/diagnos(e|is|tic)|treatment|clinical/i);
   });
   it('builds a tooth page with all three notations', () => {
     const p = toothPage(36);
     expect(p.path).toBe('tooth/36/');
-    expect(p.title).toBe('Mandibular left first molar (FDI 36 · Universal 19) — Dental Scope');
+    expect(p.title).toBe('左下第一磨牙 (FDI 36 · Universal 19) — Dental Scope');
     expect(p.description).toContain('Palmer LL6');
     expect(p.description.length).toBeLessThanOrEqual(170);
   });
@@ -99,7 +99,7 @@ describe('structured data and the about page', () => {
   });
   it('writes a readable about page linking every tooth, with FAQ data', () => {
     const html = aboutHtml(headTags(ABOUT, 'https://example.org/'), '/', '/favicon.svg');
-    for (const fdi of [11, 18, 21, 28, 31, 38, 41, 48]) expect(html).toContain(`href="/tooth/${fdi}/"`);
+    for (const fdi of [11, 18, 21, 28, 31, 38, 41, 48]) expect(html).toContain(`href="/tooth/${fdi}/?lang=en"`);
     expect(html).toContain('"@type":"FAQPage"');
     expect(html).toContain('<h1>');
     expect(html).not.toContain('undefined');

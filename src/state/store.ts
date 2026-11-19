@@ -476,7 +476,7 @@ export const actions = {
 export function restorePreferences() {
   try {
     const fromUrl = new URLSearchParams(location.search).get('lang');
-    if (isLang(fromUrl)) persist(PREF.lang, fromUrl);
+    if (isLang(fromUrl)) actions.setLang(fromUrl);
     const n = localStorage.getItem(PREF.numbering);
     if (n === 'fdi' || n === 'universal' || n === 'palmer') setState({ numbering: n });
     const t = localStorage.getItem(PREF.theme);

@@ -55,6 +55,7 @@ describe('anatomical names', () => {
       de: 'Erster Molar im Unterkiefer links',
       es: 'Primer molar inferior izquierdo',
       la: 'Dens molaris primus inferior sinister',
+      zh: '左下第一磨牙',
     });
     expect(registry.get('enamel-36')!.names.es).toBe('Esmalte');
     expect(registry.get('enamel-36')!.names.la).toBe('Enamelum');
@@ -66,6 +67,20 @@ describe('anatomical names', () => {
 });
 
 describe('content', () => {
+  it('provides Chinese names and original-language references for every selectable structure', () => {
+    for (const structure of registry.byId.values()) {
+      expect(structure.names.zh, structure.id).toMatch(/\p{Script=Han}/u);
+      const content = resolveContent(registry, structure.id, 'zh');
+      expect(content.summary, structure.id).toMatch(/\p{Script=Han}/u);
+      expect(content.sources.map(source => source.url)).toEqual(resolveContent(registry, structure.id, 'en').sources.map(source => source.url));
+    }
+  });
+  it('finds teeth, tissues and nerves using Chinese names, common names and full-width numbers', () => {
+    for (const query of ['左下第一磨牙', '３６号牙', '牙位36']) expect(top(query)).toBe('tooth-36');
+    expect(top('智齿')).toMatch(/^tooth-\d8$/);
+    expect(top('牙釉质')).toMatch(/^enamel-/);
+    expect(top('右侧下牙槽神经')).toBe('inferior-alveolar-nerve-right');
+  });
   it('every language has the same content entries and fields as English', () => {
     for (const l of LANGS) {
       expect(Object.keys(CONTENT[l]).sort(), l).toEqual(Object.keys(CONTENT.en).sort());

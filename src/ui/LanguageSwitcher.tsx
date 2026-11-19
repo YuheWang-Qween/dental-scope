@@ -1,5 +1,5 @@
 /**
- * Flag buttons for the interface language. English is the default; the choice is
+ * Flag buttons for the interface language. The choice is
  * remembered per browser. Flags are inline SVG (Windows does not draw flag emoji).
  */
 import { LANGS, LANG_NATIVE, MESSAGES, useLang, useT, type Lang } from '../i18n';
@@ -37,6 +37,7 @@ export function LanguageSwitcher() {
 
 function Flag({ lang }: { lang: Lang }) {
   const common = { width: 22, height: 15, preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': true, focusable: false } as const;
+  if (lang === 'zh') return <span aria-hidden="true">中</span>;
   if (lang === 'sv')
     return (
       <svg {...common} viewBox="0 0 16 10">

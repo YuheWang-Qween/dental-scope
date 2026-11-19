@@ -68,7 +68,7 @@ const en: AboutText = {
     ['Three numbering systems', 'FDI (ISO 3950), Universal (ADA) and Palmer, switchable at any time.'],
     ['Nerves, vessels and muscles', 'inferior alveolar, lingual and superior alveolar nerves, the temporomandibular joint and the muscles of mastication.'],
     ['Search', 'any structure or tooth by name or number.'],
-    ['English, Swedish, German, Spanish and Latin', 'switch the language with the flags at the top of the explorer.'],
+    ['English, Swedish, German, Spanish, Latin and Simplified Chinese', 'switch the language with the flags at the top of the explorer.'],
   ],
   teethTitle: 'All 32 permanent teeth',
   teethIntro: 'Each link opens the 3D explorer with that tooth selected.',
@@ -131,7 +131,7 @@ const en: AboutText = {
     },
     {
       q: 'Which languages is it available in?',
-      a: 'English, Swedish, German, Spanish and Latin. The whole explorer, including the anatomical names and descriptions, is translated; choose a language with the flags at the top.',
+      a: 'English, Swedish, German, Spanish, Latin and Simplified Chinese. The whole explorer, including the anatomical names and descriptions, is translated; choose a language with the flags at the top.',
     },
     {
       q: 'Can Dental Scope be used for diagnosis?',
@@ -145,6 +145,108 @@ const en: AboutText = {
   footer: 'Free 3D dental anatomy',
   madeBy: 'Made by',
   otherLanguages: 'Language',
+};
+
+const zh: AboutText = {
+  htmlLang: 'zh',
+  title: '关于牙齿解剖图谱：交互式三维口腔解剖图谱',
+  description:
+    '面向口腔学习者的免费开源图谱：探索每颗恒牙、牙位编号、牙体组织、颌骨、神经和肌肉。',
+  openExplorer: '打开三维图谱 →',
+  h1: '牙齿解剖图谱：交互式三维口腔解剖',
+  lede: 'Dental Scope 是一个免费、开源的三维牙齿解剖图谱。你可以旋转颅骨和上下颌骨，选择 32 颗恒牙中的任一颗，从牙釉质、牙本质逐层观察到牙髓和根管。直接在浏览器运行，无需安装。',
+  toc: ['功能', '全部 32 颗恒牙', '牙位编号', '牙齿类型', '解剖术语表', '常见问题', '解剖数据来源'],
+  onThisPage: '本页目录',
+  featuresTitle: '如何使用图谱',
+  features: [
+    ['观察全口模型', '旋转查看颅骨、上颌骨、下颌骨、牙龈和全部恒牙，包括第三磨牙（智齿）。'],
+    ['查看单牙内部', '逐层辨认牙釉质、牙本质、牙骨质、牙周膜、髓室、髓角及根管。'],
+    ['分解模型', '分步分离各层，或将各结构并排展开。'],
+    ['剖切视图', '调整切面位置，观察牙齿与骨骼的横断面。'],
+    ['三种牙位编号', '随时切换 FDI（ISO 3950）、通用编号法（ADA）或 Palmer 牙位记录法。'],
+    ['神经、血管和肌肉', '追踪下牙槽神经、舌神经和上牙槽神经，观察颞下颌关节及咀嚼肌。'],
+    ['搜索', '按名称或牙位编号查找牙齿和解剖结构。'],
+    ['六种界面语言', '默认简体中文，可通过顶部语言按钮切换为其他语言。'],
+  ],
+  teethTitle: '全部 32 颗恒牙',
+  teethIntro: '点击牙名，会在三维图谱中直接选中这颗牙。',
+  quadrants: ['右上（FDI 第 1 象限）', '左上（FDI 第 2 象限）', '左下（FDI 第 3 象限）', '右下（FDI 第 4 象限）'],
+  numberingTitle: '牙位编号法',
+  numberingIntro:
+    '口腔专业人员用简短的编号记录牙位。以下用左下第一磨牙说明三种常见编号法如何对应。',
+  numberingHead: ['编号法', '读法', '左下第一磨牙'],
+  numberingRows: [
+    ['FDI（ISO 3950）', '第一位是象限（1 右上、2 左上、3 左下、4 右下），第二位是从中线向后的顺序（1 中切牙至 8 第三磨牙）。', '36'],
+    ['通用编号法（ADA）', '从右上第三磨牙开始，沿上牙弓向左编号，再从左下沿下牙弓向右，恒牙依次为 1～32。', '#19'],
+    ['Palmer 牙位记录法', '用象限符号搭配从中线数起的 1～8。本图谱以 UR、UL、LL、LR 表示象限，例如 LL6。英国及正畸领域常用。', 'LL6'],
+  ],
+  typesTitle: '牙齿类型',
+  typesIntro:
+    '恒牙列每个象限有两颗切牙、一颗尖牙、两颗前磨牙和三颗磨牙。下列为教材中的常见情况，实际牙根、根管及萌出时间可有差异。',
+  upper: '上颌',
+  lower: '下颌',
+  functionLabel: '功能：',
+  notesLabel: '说明：',
+  rootsLabel: '牙根',
+  canalsLabel: '根管',
+  eruptionLabel: '萌出时间',
+  viewIn3d: '在三维图谱中查看：',
+  glossaryTitle: '口腔解剖术语表',
+  glossaryIntro: '以下简要介绍三维模型中可以点选的结构。',
+  glossaryGroups: ['牙体分区', '牙体组织', '牙周支持组织', '颌骨与关节', '神经与血管', '咀嚼肌与面肌'],
+  termNames: {
+    cej: '釉牙骨质界（CEJ）',
+    crown: '牙冠', root: '牙根', apex: '根尖', enamel: '牙釉质', dentin: '牙本质', cementum: '牙骨质', pulp: '牙髓', 'pulp-chamber': '髓室', 'pulp-horn': '髓角', 'root-canals': '根管', 'apical-foramen': '根尖孔',
+    periodontium: '牙周组织', gingiva: '牙龈', maxilla: '上颌骨', 'maxillary-sinus': '上颌窦', mandible: '下颌骨', 'mandibular-condyle': '下颌髁突', 'articular-disc': '关节盘', 'mandibular-foramen': '下颌孔', 'mental-foramen': '颏孔',
+    'inferior-alveolar-nerve': '下牙槽神经', 'mental-nerve': '颏神经', 'incisive-nerve': '切牙神经', 'lingual-nerve': '舌神经', 'infraorbital-nerve': '眶下神经', 'posterior-superior-alveolar-nerve': '上牙槽后神经', 'middle-superior-alveolar-nerve': '上牙槽中神经', 'anterior-superior-alveolar-nerve': '上牙槽前神经', 'greater-palatine-nerve': '腭大神经', 'nasopalatine-nerve': '鼻腭神经', 'inferior-alveolar-artery': '下牙槽动脉',
+    masseter: '咬肌', temporalis: '颞肌', 'medial-pterygoid': '翼内肌', 'lateral-pterygoid': '翼外肌', buccinator: '颊肌', 'orbicularis-oris': '口轮匝肌', mentalis: '颏肌',
+    pdl: '牙周膜（PDL）',
+    tmj: '颞下颌关节（TMJ）',
+    'maxillary-alveolar-process': '上颌牙槽突',
+    'mandibular-alveolar-process': '下颌牙槽部',
+  },
+  faqTitle: '常见问题',
+  faq: [
+    {
+      q: '什么是牙齿解剖图谱？',
+      a: 'Dental Scope 是在浏览器中运行的免费开源三维口腔解剖图谱。可以旋转颅骨与颌骨、选取牙齿或其他结构，并逐层观察牙体内部。',
+    },
+    {
+      q: '使用需要付费吗？',
+      a: '不需要。无需账号或安装。源代码采用 MIT 许可，BodyParts3D 衍生模型采用 CC BY-SA 2.1 日本版许可。',
+    },
+    {
+      q: '适合谁使用？',
+      a: '适合口腔医学、口腔卫生和口腔辅助专业的学生、需要课堂演示模型的教师，以及想了解牙齿构造的读者。',
+    },
+    {
+      q: '支持哪些牙位编号？',
+      a: '以左下第一磨牙为例，FDI 编号为 36，美国通用编号为 #19，Palmer 编号为 LL6。可用 FDI、UNI 和 PAL 按钮切换。',
+    },
+    {
+      q: '如何看到牙齿内部？',
+      a: '选中牙齿后进入单牙解剖，可分离牙釉质、牙本质、牙骨质、牙周膜、髓室与根管，也可使用剖切工具直接观察切面。',
+    },
+    {
+      q: '手机或平板能用吗？',
+      a: '可以。使用支持 WebGL 的较新版本 Chrome、Edge、Firefox 或 Safari 即可。',
+    },
+    {
+      q: '有哪些语言？',
+      a: '简体中文、英语、瑞典语、德语、西班牙语和拉丁语。可在图谱顶部切换语言。解剖名称、结构说明和搜索均支持中文。',
+    },
+    {
+      q: '能用来诊断疾病吗？',
+      a: '不能。本图谱仅供教学。牙体内部按简化比例建模，神经和血管主要来自图谱，而非个体实测数据，不能用于诊断、治疗规划或临床决策。',
+    },
+  ],
+  creditsTitle: '数据来源与许可',
+  creditsHtml:
+    '原作者：{author}。源代码见 <a href="{repo}" rel="noopener">GitHub</a>。颌骨、牙齿、颅骨和肌肉来自 <a href="{bp3d}" rel="noopener">BodyParts3D</a>（© The Database Center for Life Science），按 <a href="{licence}" rel="noopener">CC BY-SA 2.1 日本版</a>许可使用。第三磨牙、牙龈、牙槽骨及关节区域由原始网格衍生；牙体内部按简化比例建模。多数神经和血管依据 <a href="https://github.com/Z-Anatomy/Models-of-human-anatomy" rel="noopener">Z-Anatomy</a>（CC BY-SA 4.0）配准。上牙槽神经、下牙槽静脉、翼静脉丛，以及补充的脑神经、骨孔标记和关节运动为教学示意。上颌窦根据上颌骨形态建模。',
+  note: '本图谱仅供学习，不用于诊断、治疗规划或临床决策。',
+  footer: '免费三维牙齿解剖图谱',
+  madeBy: '原作者：',
+  otherLanguages: '语言',
 };
 
 const sv: AboutText = {
@@ -166,7 +268,7 @@ const sv: AboutText = {
     ['Tre numreringssystem', 'FDI (ISO 3950), Universal (ADA) och Palmer, som du kan växla mellan när som helst.'],
     ['Nerver, kärl och muskler', 'n. alveolaris inferior, n. lingualis och de övre alveolarnerverna, käkleden och tuggmusklerna.'],
     ['Sök', 'efter valfri struktur eller tand med namn eller nummer.'],
-    ['Engelska, svenska, tyska, spanska och latin', 'byt språk med flaggorna högst upp i utforskaren.'],
+    ['Engelska, svenska, tyska, spanska, latin och förenklad kinesiska', 'byt språk med flaggorna högst upp i utforskaren.'],
   ],
   teethTitle: 'Alla 32 permanenta tänder',
   teethIntro: 'Varje länk öppnar 3D-utforskaren med den tanden vald.',
@@ -266,7 +368,7 @@ const sv: AboutText = {
     },
     {
       q: 'Vilka språk finns det på?',
-      a: 'Engelska, svenska, tyska, spanska och latin. Hela utforskaren är översatt, även de anatomiska namnen och beskrivningarna; välj språk med flaggorna högst upp.',
+      a: 'Engelska, svenska, tyska, spanska, latin och förenklad kinesiska. Hela utforskaren är översatt, även de anatomiska namnen och beskrivningarna; välj språk med flaggorna högst upp.',
     },
     {
       q: 'Kan Dental Scope användas för diagnostik?',
@@ -301,7 +403,7 @@ const de: AboutText = {
     ['Drei Zahnschemata', 'FDI (ISO 3950), Universal (ADA) und Palmer, jederzeit umschaltbar.'],
     ['Nerven, Gefäße und Muskeln', 'N. alveolaris inferior, N. lingualis und die oberen Alveolarnerven, das Kiefergelenk und die Kaumuskulatur.'],
     ['Suche', 'nach jeder Struktur und jedem Zahn über Name oder Nummer.'],
-    ['Englisch, Schwedisch, Deutsch, Spanisch und Latein', 'die Sprache über die Flaggen oben im Explorer umschalten.'],
+    ['Englisch, Schwedisch, Deutsch, Spanisch, Latein und vereinfachtes Chinesisch', 'die Sprache über die Flaggen oben im Explorer umschalten.'],
   ],
   teethTitle: 'Alle 32 bleibenden Zähne',
   teethIntro: 'Jeder Link öffnet den 3D-Explorer mit dem ausgewählten Zahn.',
@@ -401,7 +503,7 @@ const de: AboutText = {
     },
     {
       q: 'In welchen Sprachen ist es verfügbar?',
-      a: 'Englisch, Schwedisch, Deutsch, Spanisch und Latein. Der gesamte Explorer ist übersetzt, einschließlich der anatomischen Bezeichnungen und Beschreibungen; die Sprache wählst du über die Flaggen oben.',
+      a: 'Englisch, Schwedisch, Deutsch, Spanisch, Latein und vereinfachtes Chinesisch. Der gesamte Explorer ist übersetzt, einschließlich der anatomischen Bezeichnungen und Beschreibungen; die Sprache wählst du über die Flaggen oben.',
     },
     {
       q: 'Kann Dental Scope zur Diagnose verwendet werden?',
@@ -436,7 +538,7 @@ const es: AboutText = {
     ['Tres sistemas de numeración', 'FDI (ISO 3950), Universal (ADA) y Palmer, intercambiables en cualquier momento.'],
     ['Nervios, vasos y músculos', 'nervios alveolar inferior, lingual y alveolares superiores, la articulación temporomandibular y los músculos de la masticación.'],
     ['Búsqueda', 'cualquier estructura o diente por su nombre o su número.'],
-    ['Inglés, sueco, alemán, español y latín', 'cambia el idioma con las banderas de la parte superior del explorador.'],
+    ['Inglés, sueco, alemán, español, latín y chino simplificado', 'cambia el idioma con las banderas de la parte superior del explorador.'],
   ],
   teethTitle: 'Los 32 dientes permanentes',
   teethIntro: 'Cada enlace abre el explorador 3D con ese diente seleccionado.',
@@ -536,7 +638,7 @@ const es: AboutText = {
     },
     {
       q: '¿En qué idiomas está disponible?',
-      a: 'En inglés, sueco, alemán, español y latín. Todo el explorador está traducido, incluidos los nombres anatómicos y las descripciones; elige el idioma con las banderas de la parte superior.',
+      a: 'En inglés, sueco, alemán, español, latín y chino simplificado. Todo el explorador está traducido, incluidos los nombres anatómicos y las descripciones; elige el idioma con las banderas de la parte superior.',
     },
     {
       q: '¿Se puede usar Dental Scope para diagnosticar?',
@@ -571,7 +673,7 @@ const la: AboutText = {
     ['Tres rationes numerandi', 'FDI (ISO 3950), Universalis (ADA) et Palmer, quovis tempore mutabiles.'],
     ['Nervi, vasa et musculi', 'nervi alveolaris inferior, lingualis et alveolares superiores, articulatio temporomandibularis et musculi masticatorii.'],
     ['Quaestio', 'quamlibet structuram aut dentem nomine vel numero quaere.'],
-    ['Anglice, Suecice, Germanice, Hispanice et Latine', 'linguam vexillis in summo exploratore muta.'],
+    ['Anglice, Suecice, Germanice, Hispanice, Latine et Sinice scriptura simplici', 'linguam vexillis in summo exploratore muta.'],
   ],
   teethTitle: 'Omnes 32 dentes permanentes',
   teethIntro: 'Quisque nexus exploratorem tridimensionalem eo dente electo aperit.',
@@ -671,7 +773,7 @@ const la: AboutText = {
     },
     {
       q: 'Quibus linguis praesto est?',
-      a: 'Anglice, Suecice, Germanice, Hispanice et Latine. Totus explorator conversus est, nominibus anatomicis et descriptionibus inclusis; linguam vexillis in summo elige.',
+      a: 'Anglice, Suecice, Germanice, Hispanice, Latine et Sinice scriptura simplici. Totus explorator conversus est, nominibus anatomicis et descriptionibus inclusis; linguam vexillis in summo elige.',
     },
     {
       q: 'Licetne Dental Scope ad diagnosim adhibere?',
@@ -687,4 +789,4 @@ const la: AboutText = {
   otherLanguages: 'Lingua',
 };
 
-export const ABOUT_TEXT: Record<Lang, AboutText> = { en, sv, de, es, la };
+export const ABOUT_TEXT: Record<Lang, AboutText> = { en, sv, de, es, la, zh };

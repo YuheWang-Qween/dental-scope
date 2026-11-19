@@ -35,7 +35,7 @@ import {
 } from '../i18n/anatomy.ts';
 
 /** Translated names as extra search terms. */
-const nameTerms = (n: Names) => [n.sv, n.de, n.es, n.la];
+const nameTerms = (n: Names) => LANGS.filter(lang => lang !== 'en').map(lang => n[lang]);
 
 const QUADRANT_GROUP: Record<number, string> = {
   1: 'upper-right-quadrant',
@@ -78,7 +78,7 @@ export class Registry {
       const meshes = (d.meshes ?? []).filter((m) => this.meshInfo(m));
       const kind = d.kind ?? (d.landmark ? 'landmark' : meshes.length ? 'mesh' : 'group');
       const info = meshes[0] ? this.meshInfo(meshes[0]) : undefined;
-      const names = structureNames(d.id, d.name) ?? { en: d.name, sv: d.name, de: d.name, es: d.name, la: d.name };
+      const names = structureNames(d.id, d.name) ?? { en: d.name, sv: d.name, de: d.name, es: d.name, la: d.name, zh: d.name };
       const short = d.shortName ? STRUCTURE_SHORT[d.id.replace(/-(right|left)$/, '')] : undefined;
       this.add({
         id: d.id,
@@ -98,7 +98,7 @@ export class Registry {
         ...(d.regional ? { regional: true } : {}),
         shortName: d.shortName,
         shortNames: d.shortName
-          ? { en: d.shortName, sv: short?.sv ?? d.shortName, de: short?.de ?? d.shortName, es: short?.es ?? d.shortName, la: short?.la ?? d.shortName }
+          ? { en: d.shortName, sv: short?.sv ?? d.shortName, de: short?.de ?? d.shortName, es: short?.es ?? d.shortName, la: short?.la ?? d.shortName, zh: short?.zh ?? names.zh }
           : undefined,
       });
     }
@@ -116,8 +116,7 @@ export class Registry {
       const base = { toothFdi: fdi, stage: 4 as const, provenance: 'modeled' as const };
       const shellInfo = this.meshInfo(tId);
       const tName = toothName(fdi);
-      const tIn = (l: 'sv' | 'de' | 'es' | 'la') => toothNameIn(typeOf(fdi), archOf(fdi), sideOf(fdi), l);
-      const tNames: Names = { en: tName, sv: tIn('sv'), de: tIn('de'), es: tIn('es'), la: tIn('la') };
+      const tNames = Object.fromEntries(LANGS.map(lang => [lang, toothNameIn(typeOf(fdi), archOf(fdi), sideOf(fdi), lang)])) as Names;
 
       // roots and canals (typical configuration derived by the pipeline)
       const roots: RootInfo[] = (mt?.roots ?? []).map((r) => ({

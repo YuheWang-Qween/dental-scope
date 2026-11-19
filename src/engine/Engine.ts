@@ -9,6 +9,7 @@ import type { Registry } from '../anatomy/registry';
 import type { Structure } from '../anatomy/types';
 import { formatTooth } from '../anatomy/notation';
 import { nameOf, shortOf } from '../i18n';
+import { interfaceText } from '../i18n/interface';
 import { store, getState, setState, actions, DISSECT_LEVELS, type AppState, type ViewPreset } from '../state/store';
 import { levelShowing, levelShows } from '../state/dissectLevels';
 import { resolveMesh, revealPatch, layersActive, type MeshVisual } from '../state/visibility';
@@ -192,7 +193,7 @@ export class Engine {
     renderer.localClippingEnabled = true;
     renderer.setClearColor(0x000000, 0);
     renderer.domElement.className = 'ds-canvas';
-    renderer.domElement.setAttribute('aria-label', '3D view of dental anatomy. Drag to orbit, scroll to zoom, click a structure to inspect it.');
+    renderer.domElement.setAttribute('aria-label', interfaceText(getState().lang).sceneDescription);
     renderer.domElement.setAttribute('role', 'img');
     container.appendChild(renderer.domElement);
     this.renderer = renderer;
@@ -454,6 +455,7 @@ export class Engine {
   }
 
   private onState(s: AppState, p: AppState) {
+    if (s.lang !== p.lang) this.renderer.domElement.setAttribute('aria-label', interfaceText(s.lang).sceneDescription);
     const developmentChanged = s.developmentStage !== p.developmentStage;
     if (s.resetId !== p.resetId || developmentChanged || s.dissectFdi !== p.dissectFdi || s.jawControls !== p.jawControls || s.selectedId !== p.selectedId) this.cancelArchPreparation?.();
     if (developmentChanged || s.developmentPlaying !== p.developmentPlaying || s.developmentShowUnerupted !== p.developmentShowUnerupted || s.developmentSoftTissue !== p.developmentSoftTissue || s.theme !== p.theme) {

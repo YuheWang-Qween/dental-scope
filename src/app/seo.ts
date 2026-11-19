@@ -3,9 +3,10 @@
  * writes the head tags, robots.txt, sitemap.xml and one static entry page per
  * tooth) and the app (document title while navigating).
  */
-import { PERMANENT_FDI, fdiToPalmer, fdiToUniversal, toothName } from '../anatomy/notation.ts';
+import { PERMANENT_FDI, archOf, sideOf, typeOf, fdiToPalmer, fdiToUniversal } from '../anatomy/notation.ts';
+import { toothNameIn } from '../i18n/anatomy.ts';
 import type { Structure } from '../anatomy/types.ts';
-import type { Lang } from '../i18n/lang.ts';
+import { DEFAULT_LANG, LANGS, type Lang } from '../i18n/lang.ts';
 import { ABOUT_TEXT } from './about-text.ts';
 
 export const SITE_NAME = 'Dental Scope';
@@ -32,11 +33,11 @@ export interface PageMeta {
 export const HOME: PageMeta = {
   path: '',
   title: SITE_NAME,
-  description:
-    'Free interactive 3D dental anatomy: all 32 permanent teeth with FDI, Universal and Palmer numbers, enamel to root canals, jaws and nerves. Educational tool.',
+  lang: DEFAULT_LANG,
+  description: '免费交互式三维牙齿解剖图谱：探索全部 32 颗恒牙、牙釉质、根管、颌骨与神经，并对照三种牙位编号。仅供教学参考。',
 };
 
-const ABOUT_ALTERNATES: Record<Lang, string> = { en: 'about/', sv: 'about/sv/', de: 'about/de/', es: 'about/es/', la: 'about/la/' };
+const ABOUT_ALTERNATES: Record<Lang, string> = { en: 'about/', sv: 'about/sv/', de: 'about/de/', es: 'about/es/', la: 'about/la/', zh: 'about/zh/' };
 const aboutPage = (lang: Lang): PageMeta => ({
   path: ABOUT_ALTERNATES[lang],
   title: ABOUT_TEXT[lang].title,
@@ -46,20 +47,20 @@ const aboutPage = (lang: Lang): PageMeta => ({
 });
 
 export const ABOUT: PageMeta = aboutPage('en');
-/** The about page in every language: English, Swedish, German, Spanish, Latin. */
-export const ABOUT_PAGES: PageMeta[] = [ABOUT, aboutPage('sv'), aboutPage('de'), aboutPage('es'), aboutPage('la')];
-const LOCALE: Record<Lang, string> = { en: 'en_US', sv: 'sv_SE', de: 'de_DE', es: 'es_ES', la: 'la_VA' };
-const ABOUT_CRUMB: Record<Lang, string> = { en: 'About', sv: 'Om', de: 'Über', es: 'Acerca de', la: 'De opere' };
+export const ABOUT_PAGES: PageMeta[] = LANGS.map(aboutPage);
+const LOCALE: Record<Lang, string> = { en: 'en_US', sv: 'sv_SE', de: 'de_DE', es: 'es_ES', la: 'la_VA', zh: 'zh_CN' };
+const ABOUT_CRUMB: Record<Lang, string> = { en: 'About', sv: 'Om', de: 'Über', es: 'Acerca de', la: 'De opere', zh: '关于' };
 
 export const OG_IMAGE = { path: 'og-image.png', width: 1200, height: 630, alt: 'Dental Scope: 3D model of the jaws and permanent teeth' };
 
 export function toothPage(fdi: number): PageMeta {
-  const name = toothName(fdi);
+  const name = toothNameIn(typeOf(fdi), archOf(fdi), sideOf(fdi), DEFAULT_LANG);
   const numbers = `FDI ${fdi} · Universal ${fdiToUniversal(fdi)}`;
   return {
     path: `tooth/${fdi}/`,
+    lang: DEFAULT_LANG,
     title: `${name} (${numbers}) — ${SITE_NAME}`,
-    description: `Interactive 3D model of the ${name.toLowerCase()} (${numbers} · Palmer ${fdiToPalmer(fdi)}): crown, roots, pulp and canals. Educational reference.`,
+    description: `${name}的交互式三维模型（${numbers} · Palmer ${fdiToPalmer(fdi)}）。观察牙冠、牙根、牙髓和根管，仅供教学参考。`,
   };
 }
 
@@ -105,7 +106,7 @@ export function structuredData(page: PageMeta, siteUrl: string): unknown {
         name: SITE_NAME,
         url: siteUrl,
         description: page.description,
-        inLanguage: 'en',
+        inLanguage: LANGS,
         publisher: { '@id': person['@id'] },
       },
       {
@@ -121,7 +122,7 @@ export function structuredData(page: PageMeta, siteUrl: string): unknown {
         isAccessibleForFree: true,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         image: siteUrl + OG_IMAGE.path,
-        inLanguage: 'en',
+        inLanguage: LANGS,
         audience: { '@type': 'EducationalAudience', educationalRole: 'student', audienceType: 'Dental students, dental hygiene and assisting students, educators' },
         keywords: 'dental anatomy, tooth anatomy, 3D teeth, tooth numbering, FDI, Universal numbering, Palmer notation, root canals, dental education',
         author: { '@id': person['@id'] },
@@ -133,7 +134,7 @@ export function structuredData(page: PageMeta, siteUrl: string): unknown {
     const crumbs: { name: string; url: string }[] = [{ name: SITE_NAME, url: siteUrl }];
     const isAbout = page.path.startsWith('about/');
     if (page.crumbs) crumbs.push(...page.crumbs.map((c) => ({ name: c.name, url: siteUrl + c.path })));
-    else if (page.path.startsWith('tooth/')) crumbs.push({ name: 'Teeth', url: `${siteUrl}${ABOUT.path}#teeth` });
+    else if (page.path.startsWith('tooth/')) crumbs.push({ name: '牙齿', url: `${siteUrl}${ABOUT_ALTERNATES[DEFAULT_LANG]}#teeth` });
     crumbs.push({ name: isAbout ? ABOUT_CRUMB[page.lang ?? 'en'] : (page.about?.name ?? page.title.replace(` — ${SITE_NAME}`, '')), url });
     const fdi = /^tooth\/(\d{2})\/$/.exec(page.path);
     graph.push({
@@ -156,7 +157,7 @@ export function structuredData(page: PageMeta, siteUrl: string): unknown {
         ? {
             about: {
               '@type': 'AnatomicalStructure',
-              name: toothName(Number(fdi[1])),
+              name: toothNameIn(typeOf(Number(fdi[1])), archOf(Number(fdi[1])), sideOf(Number(fdi[1])), page.lang ?? DEFAULT_LANG),
               alternateName: [`FDI ${fdi[1]}`, `Universal ${fdiToUniversal(Number(fdi[1]))}`, `Palmer ${fdiToPalmer(Number(fdi[1]))}`],
               bodyLocation: 'Mouth',
             },

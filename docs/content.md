@@ -5,7 +5,7 @@ Localized additions also live in `src/content/feedbackAnatomy.ts` and `src/conte
 
 ## Required description coverage
 
-Every selectable registry item must have a meaningful summary in all five languages. New static anatomy parts require their own content key (left/right pairs may share one); generic prefix fallback is not enough. Generated tooth tissues may reuse their tissue description.
+Every selectable registry item must have a meaningful summary in every supported language, including Simplified Chinese (`zh`). New static anatomy parts require their own content key (left/right pairs may share one); generic prefix fallback is not enough. Generated tooth tissues may reuse their tissue description.
 
 `src/content/coverage.test.ts` audits the registry against the current model manifest, and the production build runs the same `descriptionGaps` check. The check also requires a complete nerve supply and identification guide for every `tooth:<type>:<arch>` entry in every language. Missing entries or translations fail the build. The rule is also recorded in the repository's `AGENTS.md` for future changes.
 

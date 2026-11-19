@@ -1,0 +1,396 @@
+{
+  "_meta": {
+    "status": "draft",
+    "note": "简明解剖教学资料，尚待依据 docs/content.md 所列来源审核。"
+  },
+  "crown": {
+    "summary": "釉牙骨质界以上、由牙釉质覆盖的部分。",
+    "function": "形成切断、撕裂或研磨食物的工作表面。",
+    "related": ["enamel", "dentin-coronal", "cej"]
+  },
+  "root": {
+    "summary": "由牙骨质覆盖、埋于牙槽骨内的部分，通过牙周膜与牙槽骨相连。",
+    "function": "将牙固定在颌骨内，并将咀嚼力传递给骨。",
+    "related": ["cementum", "dentin-radicular", "pdl", "root-canals"]
+  },
+  "enamel": {
+    "summary": "牙釉质覆盖牙冠，是人体最硬的组织，主要由羟磷灰石晶体构成。",
+    "function": "提供耐磨的咀嚼表面，保护下方牙本质。",
+    "clinical": "牙釉质不含细胞，缺损后不能自行再生。牙菌斑产生的酸使其脱矿，是龋病的早期变化。",
+    "facts": [
+      { "label": "成分", "value": "矿物质约占重量的 96%" },
+      { "label": "形成细胞", "value": "成釉细胞（牙齿萌出后消失）" }
+    ],
+    "related": ["dentin-coronal", "cej", "crown"]
+  },
+  "dentin": {
+    "summary": "构成牙体主体的矿化组织。在牙冠部位于牙釉质下方，在牙根部位于牙骨质内侧。",
+    "function": "支撑牙釉质并包绕牙髓。牙本质小管与牙髓相通，使牙本质能对刺激产生反应。",
+    "clinical": "牙本质暴露可导致敏感。继发性牙本质终生缓慢形成，受刺激时还会形成第三期牙本质，使髓腔逐渐缩小。",
+    "facts": [
+      { "label": "成分", "value": "矿物质约占重量的 70%" },
+      { "label": "形成细胞", "value": "排列在牙髓周边的成牙本质细胞" }
+    ],
+    "related": ["enamel", "pulp-chamber", "cementum"]
+  },
+  "dentin-coronal": {
+    "summary": "位于牙冠牙釉质下方、包绕髓室的牙本质。",
+    "function": "支撑牙釉质，保护牙髓。",
+    "clinical": "龋损到达冠部牙本质后，可沿釉牙本质界向侧方扩展。",
+    "related": ["enamel", "pulp-chamber"]
+  },
+  "dentin-radicular": {
+    "summary": "牙根部的牙本质，外覆牙骨质，包绕一条或多条根管。",
+    "function": "构成牙根的主体。",
+    "related": ["cementum", "root-canals"]
+  },
+  "cementum": {
+    "summary": "覆盖根部牙本质的一薄层矿化组织。",
+    "function": "为牙周膜纤维提供附着，使牙齿固定在牙槽窝中。",
+    "clinical": "在釉牙骨质界附近最薄，向根尖逐渐增厚。模型为便于观察略夸大了其厚度。",
+    "facts": [
+      { "label": "成分", "value": "矿物质约占重量的 45%～50%" }
+    ],
+    "related": ["pdl", "dentin-radicular"]
+  },
+  "pdl": {
+    "summary": "位于牙根牙骨质与牙槽骨之间的一层薄纤维结缔组织。",
+    "function": "将牙悬系在牙槽窝中，缓冲咀嚼力，并提供本体感觉反馈。",
+    "clinical": "宽度通常不到 1 毫米。影像中牙周膜间隙增宽可提示咬合创伤或其他病变。",
+    "related": ["cementum", "alveolar-bone"]
+  },
+  "pulp": {
+    "summary": "位于牙体中央的软结缔组织，含血管、神经及形成牙本质的成牙本质细胞。",
+    "function": "形成牙本质，为牙体提供营养并传递感觉。",
+    "clinical": "牙髓炎是牙痛的常见原因。不可复性牙髓炎或牙髓坏死通常需根管治疗或拔除患牙。",
+    "related": ["pulp-chamber", "root-canals", "apical-foramen"]
+  },
+  "pulp-chamber": {
+    "summary": "髓腔位于牙冠及牙颈部的部分。",
+    "function": "容纳冠部牙髓，向牙尖伸出的部分为髓角。",
+    "clinical": "继发性牙本质随年龄沉积，髓室逐渐缩小。根管口位于髓室底部。",
+    "related": ["pulp-horn", "root-canals"]
+  },
+  "pulp-horn": {
+    "summary": "髓室向牙尖或切缘伸出的部分。",
+    "clinical": "深部窝洞制备可能使髓角暴露，年轻牙的风险更高。",
+    "related": ["pulp-chamber", "enamel"]
+  },
+  "root-canals": {
+    "summary": "位于牙根内的髓腔部分，从根管口延伸至根尖孔。",
+    "function": "为牙髓的神经和血管在牙体与周围组织间提供通道。",
+    "clinical": "根管数量和形态差异很大。根管治疗涉及清理、成形和充填此空间。本图谱按牙根常见构型建模。",
+    "related": ["pulp-chamber", "apical-foramen"]
+  },
+  "canal": {
+    "summary": "单条根管，即牙根内含牙髓组织的管道。",
+    "function": "容纳牙髓的神经和血管。",
+    "clinical": "所示为该牙根的常见构型之一，实际存在多种变异。",
+    "related": ["apical-foramen", "pulp-chamber"]
+  },
+  "apical-foramen": {
+    "summary": "位于根尖或其附近的开口，牙髓的神经和血管由此出入。",
+    "clinical": "根尖孔常略偏离解剖根尖。根管充填的终点通常位于靠近该孔的根管内。",
+    "related": ["root-canals", "apex"]
+  },
+  "apex": {
+    "summary": "牙根的尖端。",
+    "clinical": "感染自根管向外扩散，可在根尖周围形成病变。",
+    "related": ["apical-foramen"]
+  },
+  "cej": {
+    "summary": "牙冠牙釉质与牙根牙骨质相接的线，也称颈线。",
+    "clinical": "是测量牙龈退缩和临床附着丧失的参照。邻面颈线向牙冠方向弯曲，前牙尤为明显。",
+    "related": ["enamel", "cementum"]
+  },
+  "maxilla": {
+    "summary": "成对的上颌骨承托上牙列，组成大部分硬腭、部分眶底和鼻腔，并容纳上颌窦。",
+    "function": "支撑上牙列和面中部。",
+    "clinical": "上颌后牙根尖可能十分接近上颌窦底。",
+    "related": ["maxillary-alveolar-process", "palatine-bone", "maxillary-nerve-branches", "maxillary-sinus"]
+  },
+  "maxillary-sinus": {
+    "summary": "位于上颌骨体内、上颌前磨牙及磨牙根尖上方的含气腔，与鼻腔相通。",
+    "function": "黏膜产生的黏液引流至鼻腔。减轻颅骨重量和参与声音共鸣是其可能的作用。",
+    "clinical": "上颌后牙根尖可紧贴窦底甚至突入窦内。该区拔牙或种植可能造成口腔与上颌窦相通，牙源性感染也可能波及窦腔。图中的窦腔根据上颌骨建模，原始模型中无此结构，大小和窦底位置均为近似值。",
+    "related": ["maxilla", "maxillary-alveolar-process", "posterior-superior-alveolar-nerve", "infraorbital-nerve"]
+  },
+  "maxillary-alveolar-process": {
+    "summary": "上颌骨上含有上牙牙槽窝的骨嵴。",
+    "function": "经牙周膜支持并固定牙齿。",
+    "clinical": "牙槽骨会随受力改建，这是正畸牙移动的基础；失牙后可吸收。本图以牙根周围骨组织表示。",
+    "related": ["pdl", "gingiva"]
+  },
+  "mandible": {
+    "summary": "下颌骨由马蹄形下颌体和两侧上行的下颌支组成；下颌支上端有髁突与冠突。它是可活动的颅面骨。",
+    "function": "承托下牙列，在颞下颌关节处运动，参与咀嚼、发音和吞咽。",
+    "related": ["mandibular-alveolar-process", "tmj", "inferior-alveolar-nerve"]
+  },
+  "mandible-body": {
+    "summary": "下颌骨的体部和两侧下颌支，不包括另行显示的牙槽部与髁头。",
+    "function": "为咀嚼肌提供附着，并容纳下颌管。",
+    "related": ["mandibular-alveolar-process", "inferior-alveolar-nerve", "masseter"]
+  },
+  "mandibular-alveolar-process": {
+    "summary": "下颌体上部含有下牙牙槽窝的部分。",
+    "function": "支撑并固定下牙。",
+    "clinical": "失牙后可吸收，使下颌管上方可用于植入种植体的骨高度减少。",
+    "related": ["pdl", "gingiva"]
+  },
+  "mandibular-condyle": {
+    "summary": "下颌髁突的圆形头部，与颞骨相对，共同构成颞下颌关节。",
+    "function": "张口时发生转动并向前滑行。",
+    "related": ["articular-disc", "articular-fossa", "lateral-pterygoid"]
+  },
+  "mandibular-foramen": {
+    "summary": "位于下颌支内面的开口，下牙槽神经和血管由此进入下颌管。",
+    "clinical": "下牙槽神经阻滞麻醉的目标区域。标记位于图谱神经走行与骨面相交处。",
+    "related": ["inferior-alveolar-nerve"]
+  },
+  "mental-foramen": {
+    "summary": "下颌骨外侧面的开口，通常在前磨牙根尖附近，颏神经和血管由此穿出。",
+    "clinical": "前磨牙区手术、种植和颏神经阻滞麻醉均需考虑其位置。标记位于图谱神经走行与骨面相交处。",
+    "related": ["mental-nerve", "inferior-alveolar-nerve"]
+  },
+  "gingiva": {
+    "summary": "覆盖牙槽突并围绕牙颈部的口腔黏膜。",
+    "function": "保护下方牙周组织，并在每颗牙周围形成封闭。",
+    "clinical": "牙龈炎通常可逆；若进展为牙周炎，则可出现附着丧失和牙槽骨吸收。",
+    "related": ["pdl", "alveolar-bone"]
+  },
+  "periodontium": {
+    "summary": "支持牙齿的组织，包括牙龈、牙周膜、牙骨质和牙槽骨。",
+    "related": ["gingiva", "pdl", "cementum"]
+  },
+  "inferior-alveolar-nerve": {
+    "summary": "下颌神经（V3）的分支，经下颌孔进入下颌管，在下牙根尖下方走行。",
+    "function": "传递下牙感觉；发出颏神经后，在骨内续为切牙神经。",
+    "clinical": "是下牙槽神经阻滞麻醉的靶神经。其与第三磨牙根及种植区相邻，术中需避免损伤。走行来自 Z-Anatomy 图谱，经配准贴合此颅骨。",
+    "related": ["mandibular-foramen", "mental-nerve", "inferior-alveolar-artery"]
+  },
+  "mental-nerve": {
+    "summary": "下牙槽神经的终支之一，经颏孔穿出。",
+    "function": "传递下唇、颏部及下颌前牙唇侧牙龈的感觉。",
+    "clinical": "损伤可致下唇与颏部麻木。图中走行来自与颅骨配准的 Z-Anatomy 图谱。",
+    "related": ["mental-foramen", "inferior-alveolar-nerve"]
+  },
+  "incisive-nerve": {
+    "summary": "下牙槽神经在颏孔前方的骨内延续。",
+    "function": "传递下颌尖牙和切牙的感觉。",
+    "related": ["inferior-alveolar-nerve"]
+  },
+  "lingual-nerve": {
+    "summary": "下颌神经（V3）的分支，沿下颌支内侧向前，在第三磨牙附近贴近舌侧骨板，走向口底和舌。",
+    "function": "传递舌前 2/3、口底和舌侧牙龈的一般感觉，并携带来自鼓索的味觉纤维。",
+    "clinical": "下颌第三磨牙手术可能损伤舌神经。图中走行来自与颅骨配准的 Z-Anatomy 图谱。",
+    "related": ["inferior-alveolar-nerve"]
+  },
+  "mandibular-nerve-branches": {
+    "summary": "三叉神经下颌支（V3）中与牙科有关的分支。",
+    "related": ["inferior-alveolar-nerve", "lingual-nerve"]
+  },
+  "maxillary-nerve-branches": {
+    "summary": "三叉神经上颌支（V2）中支配上牙及周围组织的分支。",
+    "related": ["infraorbital-nerve", "posterior-superior-alveolar-nerve"]
+  },
+  "infraorbital-nerve": {
+    "summary": "上颌神经（V2）在眶底的延续，经眶下孔到达面部。",
+    "function": "支配下睑、鼻侧和上唇感觉；发出上牙槽前神经，部分人还发出上牙槽中神经。",
+    "clinical": "走行来自与本颅骨配准的 Z-Anatomy 图谱。",
+    "related": ["anterior-superior-alveolar-nerve", "middle-superior-alveolar-nerve"]
+  },
+  "posterior-superior-alveolar-nerve": {
+    "summary": "上颌神经（V2）的分支，在上颌结节附近进入上颌骨后部。",
+    "function": "传递大部分上颌磨牙及其颊侧牙龈的感觉。",
+    "clinical": "是上牙槽后神经阻滞麻醉的靶神经，图中走行为示意。",
+    "related": ["maxillary-nerve-branches"]
+  },
+  "middle-superior-alveolar-nerve": {
+    "summary": "眶下神经的分支，仅见于部分人群。",
+    "function": "存在时支配上颌前磨牙以及第一磨牙的部分区域。",
+    "clinical": "所示走行为示意。",
+    "related": ["infraorbital-nerve"]
+  },
+  "anterior-superior-alveolar-nerve": {
+    "summary": "眶下神经的分支，沿上颌骨前壁下行。",
+    "function": "传递上颌切牙和尖牙的感觉。",
+    "clinical": "所示走行为示意。",
+    "related": ["infraorbital-nerve"]
+  },
+  "greater-palatine-nerve": {
+    "summary": "来自上颌神经（V2）的分支，自翼腭窝与腭降动脉一同沿腭大管下行，经上颌磨牙腭侧的腭大孔穿出。",
+    "function": "支配硬腭和尖牙以后的腭侧牙龈；在尖牙附近与鼻腭神经的分布区重叠。",
+    "clinical": "腭大孔附近的神经阻滞可麻醉上颌前磨牙和磨牙的腭侧牙龈。所示走行为示意。",
+    "related": ["maxillary-nerve", "nasopalatine-nerve", "descending-palatine-artery", "palatine-bone"],
+    "sources": [
+      {
+        "title": "StatPearls: Nasopalatine Nerve",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK538422/"
+      },
+      {
+        "title": "StatPearls: Pterygopalatine Fossa",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK513269/"
+      }
+    ]
+  },
+  "nasopalatine-nerve": {
+    "summary": "来自上颌神经（V2）的分支，自翼腭窝经蝶腭孔进入鼻腔，沿鼻中隔向前下方走行，再经切牙管至上颌中切牙后方的口腔。",
+    "function": "支配鼻中隔及上颌前牙区的腭侧黏膜和牙龈。两侧神经在穿出切牙孔前汇合。",
+    "clinical": "切牙乳头区的鼻腭神经阻滞可麻醉双侧上颌前牙腭侧组织。所示走行为示意。",
+    "related": ["maxillary-nerve", "greater-palatine-nerve", "vomer", "maxilla"],
+    "sources": [
+      {
+        "title": "StatPearls: Nasopalatine Nerve",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK538422/"
+      }
+    ]
+  },
+  "inferior-alveolar-artery": {
+    "summary": "上颌动脉的分支，伴随下牙槽神经穿行于下颌管。",
+    "function": "为下颌骨和下牙供血。",
+    "clinical": "走行来自与本颅骨配准的 Z-Anatomy 图谱。",
+    "related": ["inferior-alveolar-nerve", "inferior-alveolar-vein"]
+  },
+  "inferior-alveolar-vein": {
+    "summary": "在下颌管内伴随下牙槽动脉和神经的静脉。",
+    "function": "引流下颌骨和下牙的静脉血。",
+    "clinical": "所示走行为示意。",
+    "related": ["inferior-alveolar-artery"]
+  },
+  "tmj": {
+    "summary": "左右颞下颌关节将下颌骨与颞骨相连。每侧均为滑膜关节，髁突与下颌窝及关节结节相对，之间隔有关节盘。",
+    "function": "可完成转动和滑动，使下颌能大幅张口和侧向运动。",
+    "clinical": "颞下颌关节紊乱病可出现疼痛、弹响和张口受限。",
+    "related": ["articular-disc", "mandibular-condyle", "lateral-pterygoid"]
+  },
+  "articular-disc": {
+    "summary": "位于下颌髁突与颞骨之间的致密纤维盘，将关节分为上、下两腔。",
+    "function": "使转动和滑动平顺，并分散关节负荷。",
+    "clinical": "关节盘移位是关节弹响的常见原因之一。图中关节盘为示意模型。",
+    "related": ["mandibular-condyle", "articular-fossa"]
+  },
+  "articular-fossa": {
+    "summary": "颞骨上容纳下颌髁突的凹陷，又称下颌窝。",
+    "related": ["mandibular-condyle", "articular-disc"]
+  },
+  "masseter": {
+    "summary": "四边形厚肌，从颧弓连至下颌角和下颌支外面。",
+    "function": "上提下颌骨使口闭合，是有力的咀嚼肌。",
+    "related": ["temporalis", "medial-pterygoid"]
+  },
+  "temporalis": {
+    "summary": "起自颅侧、止于下颌骨冠突的扇形肌。",
+    "function": "上提下颌骨，后部纤维可将下颌向后牵引。",
+    "related": ["masseter"]
+  },
+  "medial-pterygoid": {
+    "summary": "位于下颌支内侧，与外侧的咬肌位置相对。",
+    "function": "上提下颌骨，并协助前伸及侧向运动。",
+    "related": ["masseter", "lateral-pterygoid"]
+  },
+  "lateral-pterygoid": {
+    "summary": "有上下两头，连接蝶骨与下颌髁突、关节囊区域。",
+    "function": "使下颌前伸，协助张口和向对侧运动。",
+    "related": ["mandibular-condyle", "articular-disc"]
+  },
+  "buccinator": {
+    "summary": "颊部肌肉，位于口腔侧壁深部。",
+    "function": "使面颊贴向牙列，咀嚼时帮助将食物保持在咬合面上。",
+    "related": ["orbicularis-oris"]
+  },
+  "mentalis": {
+    "summary": "位于颏部的小肌肉。",
+    "function": "提起并前伸下唇，使颏部皮肤起皱。",
+    "related": ["orbicularis-oris"]
+  },
+  "orbicularis-oris": {
+    "summary": "在唇内环绕口裂、形似括约肌的肌肉。",
+    "function": "闭合并塑造唇形，参与发音、进食和表情。",
+    "related": ["buccinator", "mentalis"]
+  },
+  "skull": {
+    "summary": "作为位置参照显示的脑颅骨与面颅骨。",
+    "related": ["maxilla", "mandible"]
+  },
+  "trigeminal-nerve": {
+    "summary": "第Ⅴ对脑神经。自三叉神经节分为眼神经（V1）、上颌神经（V2）和下颌神经（V3）。",
+    "function": "是面、牙和口腔的主要感觉神经；下颌支的运动纤维还支配咀嚼肌。",
+    "related": ["maxillary-nerve", "mandibular-nerve"]
+  },
+  "maxillary-nerve": {
+    "summary": "三叉神经第二支（V2），经圆孔出颅，在翼腭窝向前延续为眶下神经。",
+    "function": "传递上牙、上颌牙龈、腭、上唇及颊部的感觉。",
+    "related": ["infraorbital-nerve", "posterior-superior-alveolar-nerve", "trigeminal-nerve"]
+  },
+  "mandibular-nerve": {
+    "summary": "三叉神经第三支（V3），经卵圆孔出颅后分为前干和后干。",
+    "function": "传递下牙、舌、下唇和颏部的感觉；运动纤维支配咀嚼肌。",
+    "related": ["inferior-alveolar-nerve", "lingual-nerve", "buccal-nerve", "trigeminal-nerve"]
+  },
+  "buccal-nerve": {
+    "summary": "来自下颌神经（V3）前干的感觉支，向前走行于颊肌表面至面颊。",
+    "function": "传递颊部及下颌磨牙颊侧牙龈的感觉。",
+    "clinical": "下颌磨牙颊侧牙龈操作时，可单独阻滞此神经（长颊神经阻滞）。",
+    "related": ["mandibular-nerve"]
+  },
+  "external-carotid-artery": {
+    "summary": "为面部和颌骨大部分区域供血的动脉，在下颌支后方上行，终末分为上颌动脉和颞浅动脉。",
+    "function": "通过面动脉、上颌动脉等分支为牙齿、颌骨、面部和头皮供血。",
+    "related": ["maxillary-artery", "facial-artery"]
+  },
+  "maxillary-artery": {
+    "summary": "颈外动脉终支之一，自下颌颈后方向前，经颞下窝进入翼腭窝。",
+    "function": "发出下牙槽动脉、上牙槽后动脉、颊动脉和腭降动脉，为牙、颌骨和腭供血。",
+    "related": ["external-carotid-artery", "inferior-alveolar-artery", "posterior-superior-alveolar-artery"]
+  },
+  "posterior-superior-alveolar-artery": {
+    "summary": "上颌动脉的分支，沿上颌结节下行，经小孔进入上颌骨。",
+    "function": "为上颌磨牙和前磨牙、上颌窦及颊侧牙龈供血。",
+    "clinical": "上牙槽后神经阻滞或上颌窦底提升术中可能损伤出血。",
+    "related": ["maxillary-artery", "posterior-superior-alveolar-nerve"]
+  },
+  "descending-palatine-artery": {
+    "summary": "上颌动脉的分支，沿腭大管下行，在硬腭上续为向前走行的腭大动脉。",
+    "function": "为硬腭和腭侧牙龈供血。",
+    "clinical": "获取腭部软组织移植物或设计腭侧切口时需考虑其走行。",
+    "related": ["maxillary-artery"]
+  },
+  "buccal-artery": {
+    "summary": "上颌动脉的小分支，伴随颊神经走向颊肌。",
+    "function": "为面颊及颊黏膜供血。",
+    "related": ["maxillary-artery", "buccal-nerve"]
+  },
+  "facial-artery": {
+    "summary": "颈外动脉的分支，在咬肌前缘绕过下颌骨下缘，向上走行于面部。",
+    "function": "为唇、颊、颏部和鼻侧供血。",
+    "clinical": "在跨越下颌骨下缘处可触及搏动。",
+    "related": ["external-carotid-artery", "facial-vein"]
+  },
+  "pterygoid-plexus": {
+    "summary": "位于颞下窝、环绕翼外肌的静脉网。接收颌骨和牙齿的静脉血，再汇入上颌静脉。",
+    "function": "汇集下牙槽静脉及来自咀嚼肌和腭的静脉血。",
+    "clinical": "上牙槽后神经阻滞时可能刺及并形成血肿。图中静脉网为示意。",
+    "related": ["maxillary-vein", "inferior-alveolar-vein"]
+  },
+  "maxillary-vein": {
+    "summary": "承接翼静脉丛的短静脉，在下颌颈后方与颞浅静脉汇合成下颌后静脉。",
+    "function": "引流翼静脉丛。",
+    "related": ["pterygoid-plexus", "retromandibular-vein"]
+  },
+  "retromandibular-vein": {
+    "summary": "在腮腺内沿下颌支后方下行，分为前、后两支。本图仅显示与面静脉汇合的前支。",
+    "function": "将上颌静脉和颞浅静脉的血液引向面静脉和颈外静脉。",
+    "related": ["maxillary-vein", "facial-vein", "internal-jugular-vein"]
+  },
+  "facial-vein": {
+    "summary": "面部的主要静脉。在面动脉后方下行，越过下颌下缘，与下颌后静脉前支汇成面总静脉。",
+    "function": "将面、唇和颏部的静脉血引向颈内静脉。",
+    "clinical": "与眶部静脉相通，上唇和鼻部感染可能沿此途径向深部扩散。",
+    "related": ["facial-artery", "internal-jugular-vein"]
+  },
+  "internal-jugular-vein": {
+    "summary": "位于颈侧的大静脉，将脑、面和颈部的静脉血引向心脏。本图仅显示上段。",
+    "function": "接收来自面静脉的血液，从而引流面部及颌骨的大部分静脉血。",
+    "related": ["facial-vein", "external-carotid-artery"]
+  }
+}

@@ -21,6 +21,13 @@ export const CREDITS_TEXT: Record<Lang, CreditsText> = {
     thanksTitle: 'With thanks',
     thanks: 'Thank you to all the other dental practitioners who contributed and chose to remain anonymous or preferred not to have their names listed. Your support and feedback are greatly appreciated.',
   },
+  zh: {
+    title: '致谢', description: 'Dental Scope 项目的作者与贡献者。',
+    creator: '项目创建者与维护者', engineers: '工程贡献者',
+    dental: '口腔专业贡献者', dentalIntro: '参与项目的口腔医生、口腔医学生及其他从业者。',
+    thanksTitle: '特别感谢',
+    thanks: '感谢所有选择匿名或不列名的口腔专业人士。你们的支持和反馈对这个项目十分宝贵。',
+  },
   sv: {
     title: 'Medverkande', description: 'Medverkande och bidragsgivare till Dental Scope.',
     creator: 'Kodarkivets skapare och förvaltare', engineers: 'Tekniska medverkande',

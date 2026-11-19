@@ -1,7 +1,10 @@
 import { expect, test, type Page } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem('ds.guide.seen.v1', 'seen'));
+  await page.addInitScript(() => {
+    if (!localStorage.getItem('ds.lang')) localStorage.setItem('ds.lang', 'en');
+    localStorage.setItem('ds.guide.seen.v1', 'seen');
+  });
 });
 
 async function searchTooth(page: Page, fdi: number) {

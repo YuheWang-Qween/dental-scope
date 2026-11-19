@@ -28,6 +28,16 @@ export const QUIZ_HINTS: Record<Lang, TypeHints> = {
     'second-molar': 'A molar behind the first one, slightly smaller, with roots that run closer together.',
     'third-molar': 'The last tooth of the arch, and the most variable in shape.',
   },
+  zh: {
+    'central-incisor': '位于牙列前方，切缘宽而直。',
+    'lateral-incisor': '紧邻中切牙，牙冠轮廓较圆。',
+    canine: '位于牙弓转角，具有一个长而尖的牙尖。',
+    'first-premolar': '这颗前磨牙的颊尖明显较大。',
+    'second-premolar': '与第一前磨牙相比，这颗牙的牙尖大小较为接近。',
+    'first-molar': '本牙弓中体积最大的牙，冠宽，有两到三个分开的牙根。',
+    'second-molar': '位于第一磨牙之后，体积稍小，牙根靠得更近。',
+    'third-molar': '牙弓中最后一颗牙，外形变异最大。',
+  },
   sv: {
     'central-incisor': 'En framtand med en bred, rak skärande kant.',
     'lateral-incisor': 'Incisiven bredvid den centrala incisiven, med en mer rundad kontur.',

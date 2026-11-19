@@ -18,6 +18,13 @@ const PRIMARY: Record<Lang, readonly string[]> = {
     'The first primary molar lies behind the canine and in front of the second primary molar. Its broad crown helps crush food. The first permanent premolar develops in the region between and beneath its roots and replaces it.',
     'The second primary molar lies behind the first primary molar. It helps grind food and is replaced by the second permanent premolar. The first permanent molar emerges behind it and does not replace it.',
   ],
+  zh: [
+    '乳中切牙靠近中线，位于乳侧切牙的近中。切缘用于切断食物；替牙期由恒中切牙替换。',
+    '乳侧切牙位于乳中切牙与乳尖牙之间，参与切断食物，之后由恒侧切牙替换。',
+    '乳尖牙位于牙弓转角，在乳侧切牙与第一乳磨牙之间。尖锐的牙冠有助于撕裂食物，继承牙是恒尖牙。',
+    '第一乳磨牙位于乳尖牙之后、第二乳磨牙之前，宽阔的牙冠有助于压碎食物。第一恒前磨牙在其根分叉间及下方发育，之后将其替换。',
+    '第二乳磨牙位于第一乳磨牙后方，参与研磨食物，由第二恒前磨牙替换。第一恒磨牙从其后方萌出，不会替换它。',
+  ],
   sv: [
     'Den centrala mjölkframtanden ligger intill mittlinjen, mesialt om den laterala framtanden. Skäreggen hjälper till att bita av mat; en permanent central framtand ersätter den under växelbettet.',
     'Den laterala mjölkframtanden ligger mellan den centrala framtanden och hörntanden. Den bidrar till framtändernas skärande kant och ersätts av en permanent lateral framtand.',
@@ -50,6 +57,7 @@ const PRIMARY: Record<Lang, readonly string[]> = {
 
 const ARCH_LOCATION: Record<Lang, Record<'maxillary' | 'mandibular', string>> = {
   en: { maxillary: 'In the upper dental arch, supported by the alveolar part of the maxilla; it opposes the lower arch.', mandibular: 'In the lower dental arch, supported by the alveolar part of the mandible; it opposes the upper arch.' },
+  zh: { maxillary: '位于上牙弓，由上颌骨牙槽突支持，与下牙弓相对。', mandibular: '位于下牙弓，由下颌骨牙槽部支持，与上牙弓相对。' },
   sv: { maxillary: 'I överkäkens tandbåge, med stöd i maxillans alveolära del; den möter underkäkens tandbåge.', mandibular: 'I underkäkens tandbåge, med stöd i mandibulans alveolära del; den möter överkäkens tandbåge.' },
   de: { maxillary: 'Im oberen Zahnbogen, getragen vom Alveolarteil der Maxilla; dem unteren Zahnbogen gegenüberliegend.', mandibular: 'Im unteren Zahnbogen, getragen vom Alveolarteil der Mandibula; dem oberen Zahnbogen gegenüberliegend.' },
   es: { maxillary: 'En el arco dental superior, sostenido por la parte alveolar del maxilar; se opone al arco inferior.', mandibular: 'En el arco dental inferior, sostenido por la parte alveolar de la mandíbula; se opone al arco superior.' },

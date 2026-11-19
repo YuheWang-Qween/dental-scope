@@ -15,6 +15,22 @@ const en = {
   reducedMotion: 'Playback is disabled for reduced motion. Use the opening slider to inspect the movement.',
   schematicAnatomy: 'Schematic anatomy', atlasAnatomy: 'Atlas anatomy', foramenNote: 'The marker identifies the passage; it does not imply a measured opening in the bone mesh.',
 };
+
+const zh: typeof en = {
+  nervesMuscles: '神经与肌肉', transparencyHint: '点击图层旁的半透明按钮，或选中结构后按 G，可看见其后方的神经。',
+  pathView: '查看神经通道', passages: '神经通道', location: '位置',
+  canalFrequency: '研究中的根管数目', canals: '根管数', frequency: '观察频率', sample: '受检牙数', source: '来源',
+  toulouse: '法国图卢兹一家影像诊所的成年受检者；左右侧牙合并统计。', jordan: '约旦北部人群拔除的第三磨牙。',
+  cbct: '锥形束 CT（CBCT），体素尺寸 200 µm', clearing: '根管染色与透明牙法',
+  observed: 'CBCT 上可辨认的根管数；细小根管可能漏检。', maximum: '在牙根任一水平可辨认的最多根管数。',
+  evidenceNote: '这些是特定样本的观察频率，并非通用概率。人群、取样和观察方法都会影响结果。牙根数和根管形态是不同的指标。',
+  modeledNote: '三维模型仅展示一种构型，不随这些百分比变化。',
+  jawMotion: '下颌运动', jawOpening: '张口程度', jawClosed: '闭口', jawOpen: '张口',
+  playJaw: '播放张闭口运动', pauseJaw: '暂停下颌运动', resetJaw: '闭口复位', rightJoint: '右侧关节', leftJoint: '左侧关节',
+  schematicMotion: '张口示意：髁突旋转，随后与关节盘一同向前下方滑动。肌肉形变用于展示附着关系，并非实测运动。',
+  reducedMotion: '已启用减弱动态效果，自动播放已停用。可拖动滑块观察张口运动。',
+  schematicAnatomy: '解剖示意', atlasAnatomy: '图谱解剖', foramenNote: '标记仅指出通道的位置，不代表骨模型中有实测的开口。',
+};
 type Text = { [K in keyof typeof en]: string };
 const sv: Text = {
   nervesMuscles: 'Nerver & muskler', transparencyHint: 'Använd knappen för genomskinlighet bredvid ett lager, eller välj en struktur och Genomskinlig (G), för att se nerverna bakom den.',
@@ -76,4 +92,4 @@ const la: Text = {
   reducedMotion: 'Motibus reductis, reproductio prohibetur. Moderamine aperturae motum inspice.',
   schematicAnatomy: 'Anatomia schematica', atlasAnatomy: 'Anatomia ex atlante', foramenNote: 'Signum transitum indicat, non foramen mensuratum in exemplari ossis.',
 };
-export const FEEDBACK_TEXT: Record<Lang, Text> = { en, sv, de, es, la };
+export const FEEDBACK_TEXT: Record<Lang, Text> = { en, sv, de, es, la, zh };

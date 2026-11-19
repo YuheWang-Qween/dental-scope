@@ -57,7 +57,7 @@ export const aboutPath = (lang: Lang) => (lang === 'en' ? 'about/' : `about/${la
 const toothName = (fdi: number, lang: Lang) => toothNameIn(typeOf(fdi), archOf(fdi), sideOf(fdi), lang);
 
 /** Explorer link for a tooth; translated pages open the explorer in their language. */
-const toothHref = (fdi: number, base: string, lang: Lang) => `${base}tooth/${fdi}/${lang === 'en' ? '' : `?lang=${lang}`}`;
+const toothHref = (fdi: number, base: string, lang: Lang) => `${base}tooth/${fdi}/?lang=${lang}`;
 
 function toothRow(fdi: number, base: string, lang: Lang): string {
   return `<li><a href="${toothHref(fdi, base, lang)}">${esc(toothName(fdi, lang))}</a> <span class="num">FDI ${fdi} · Universal ${fdiToUniversal(fdi)} · Palmer ${fdiToPalmer(fdi)}</span></li>`;
@@ -107,7 +107,7 @@ export function aboutHtml(head: string, base: string, faviconHref: string, lang:
   const T = ABOUT_TEXT[lang];
   const STRUCTURES = CONTENT[lang] as Record<string, Entry>;
   const termName = (k: string) => T.termNames[k] ?? cap(k.replace(/-/g, ' '));
-  const explorer = `${base}${lang === 'en' ? '' : `?lang=${lang}`}`;
+  const explorer = `${base}?lang=${lang}`;
   const glossary = GLOSSARY.map(
     (keys, i) => `
       <h3>${esc(T.glossaryGroups[i])}</h3>

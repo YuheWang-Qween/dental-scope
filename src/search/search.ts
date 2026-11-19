@@ -6,6 +6,7 @@ import type { Registry } from '../anatomy/registry';
 import { CATEGORY_BY_ID } from '../anatomy/categories';
 import { de } from '../i18n/de';
 import { sv } from '../i18n/sv';
+import { zh } from '../i18n/zh';
 import { palmerToFdi, universalToFdi } from '../anatomy/notation';
 import type { NumberingSystem, Structure } from '../anatomy/types';
 
@@ -35,7 +36,7 @@ export function normalise(s: string): string {
     .replace(/[̀-ͯ]/g, '')
     .replace(/ß/g, 'ss')
     .replace(/dentine/g, 'dentin')
-    .replace(/[^a-z0-9#\s]/g, ' ')
+    .replace(/[^a-z0-9#\s\p{Script=Han}]/gu, ' ')
     .split(/\s+/)
     .filter(Boolean)
     .map((w) => NUMBER_WORDS[w] ?? w)
@@ -53,6 +54,7 @@ export function buildIndex(registry: Registry): SearchEntry[] {
       // category names in the other interface languages
       terms.add(normalise(sv.category[c] ?? c));
       terms.add(normalise(de.category[c] ?? c));
+      terms.add(normalise(zh.category[c] ?? c));
     }
     out.push({ id: s.id, name: s.name, terms: [...terms], kindBoost: kindBoost(s) });
   }
@@ -88,7 +90,7 @@ function termScore(q: string, qWords: string[], term: string): number {
  * Returns FDI numbers with a hint; the active system is ranked first.
  */
 export function parseToothQuery(raw: string, system: NumberingSystem): { fdi: number; hint: string; primary: boolean }[] {
-  const q = raw.trim().toLowerCase();
+  const q = raw.normalize('NFKC').trim().toLowerCase().replace(/^(?:牙位\s*|牙\s*)?(\d{1,2})\s*(?:号牙|号|牙)?$/, '$1');
   const out: { fdi: number; hint: string; primary: boolean }[] = [];
   const pal = palmerToFdi(q.replace(/^palmer\s*/, ''));
   if (pal) return [{ fdi: pal, hint: `Palmer ${q.toUpperCase().replace(/\s+/g, '')}`, primary: true }];

@@ -1,5 +1,6 @@
 import type { Lang } from './lang.ts';
 export const SINUS_NOTE: Record<Lang, string> = {
+  zh: '教学用窦腔模型，非个体实测。草稿待解剖专业人员审核。',
   en: 'Modelled teaching volumes, not measured cavities. Draft pending anatomical review.',
   sv: 'Modellerade undervisningsvolymer, inte uppmätta hålrum. Utkast i väntan på anatomisk granskning.',
   de: 'Modellierte Lehrvolumen, keine vermessenen Hohlräume. Entwurf bis zur anatomischen Prüfung.',
@@ -14,9 +15,18 @@ const en = {
   vesselView: 'Inspect vessel course', vesselHint: 'Follow red arteries and blue veins through translucent bone and muscle. Choose a side or select a vessel for its relationships.',
   sinuses: 'Sinuses', sinusView: 'Inspect all sinuses', sinusHint: 'Hover a sinus or its label for its name and anatomy. Colors distinguish the three groups; sinus shapes and sizes vary.',
 };
+
+const zh: typeof en = {
+  features: '牙面形态', show: '显示牙面特征', hide: '隐藏牙面特征',
+  note: '牙面起伏和标记点均为教学示意；不同牙齿和个体的形态有所不同。草稿待口腔专业人员审核。',
+  mesial: '近中面', distal: '远中面', occlusal: '咬合面', inner: '舌面／腭面', facial: '唇面／颊面',
+  vessels: '血管', arteries: '动脉', veins: '静脉', both: '动脉与静脉', allSides: '双侧', right: '右侧', left: '左侧',
+  vesselView: '观察血管走行', vesselHint: '透过半透明的骨和肌肉追踪红色动脉与蓝色静脉。可选择一侧或一条血管查看其毗邻关系。',
+  sinuses: '鼻旁窦', sinusView: '查看全部鼻旁窦', sinusHint: '将指针移至窦腔或其标注可查看名称和说明。三种颜色区分三组鼻旁窦，实际形状和大小因人而异。',
+};
 type Text = { [K in keyof typeof en]: string };
 export const STUDY_TEXT: Record<Lang, Text> = {
-  en,
+  en, zh,
   sv: { mesial: 'Mesialyta', distal: 'Distalyta', features: 'Ytanatomi', show: 'Visa ytstrukturer', hide: 'Dölj ytstrukturer', note: 'Schematisk undervisningsrelief och anpassade markörer; mönster varierar mellan tänder och individer. Utkast i väntan på tandläkargranskning.', occlusal: 'Tuggyta', inner: 'Insida', facial: 'Utsida', vessels: 'Blodkärl', arteries: 'Artärer', veins: 'Vener', both: 'Artärer & vener', allSides: 'Båda sidor', right: 'Höger', left: 'Vänster', vesselView: 'Utforska kärlets förlopp', vesselHint: 'Följ röda artärer och blå vener genom genomskinligt ben och muskler. Välj sida eller kärl för att se anatomiska samband.', sinuses: 'Bihålor', sinusView: 'Utforska alla bihålor', sinusHint: 'Håll pekaren över en bihåla eller dess etikett för namn och anatomi. Färger skiljer de tre grupperna åt; form och storlek varierar.' },
   de: { mesial: 'Mesialfläche', distal: 'Distalfläche', features: 'Oberflächenanatomie', show: 'Oberflächenmerkmale zeigen', hide: 'Oberflächenmerkmale ausblenden', note: 'Schematisches Lehrrelief und angepasste Landmarken; Muster variieren zwischen Zähnen und Personen. Entwurf bis zur zahnärztlichen Prüfung.', occlusal: 'Kaufläche', inner: 'Innenseite', facial: 'Außenseite', vessels: 'Gefäße', arteries: 'Arterien', veins: 'Venen', both: 'Arterien & Venen', allSides: 'Beide Seiten', right: 'Rechts', left: 'Links', vesselView: 'Gefäßverlauf untersuchen', vesselHint: 'Rote Arterien und blaue Venen durch transparenten Knochen und Muskeln verfolgen. Eine Seite oder ein Gefäß für seine Beziehungen wählen.', sinuses: 'Nebenhöhlen', sinusView: 'Alle Nebenhöhlen untersuchen', sinusHint: 'Für Name und Anatomie den Zeiger über eine Nebenhöhle oder ihr Etikett halten. Farben unterscheiden die drei Gruppen; Form und Größe variieren.' },
   es: { mesial: 'Cara mesial', distal: 'Cara distal', features: 'Anatomía superficial', show: 'Mostrar detalles superficiales', hide: 'Ocultar detalles superficiales', note: 'Relieve didáctico esquemático e hitos adaptados; los patrones varían entre dientes y personas. Borrador pendiente de revisión odontológica.', occlusal: 'Superficie masticatoria', inner: 'Cara interna', facial: 'Cara externa', vessels: 'Vasos', arteries: 'Arterias', veins: 'Venas', both: 'Arterias y venas', allSides: 'Ambos lados', right: 'Derecho', left: 'Izquierdo', vesselView: 'Examinar trayecto vascular', vesselHint: 'Sigue arterias rojas y venas azules a través de huesos y músculos transparentes. Elige un lado o vaso para ver sus relaciones.', sinuses: 'Senos', sinusView: 'Examinar todos los senos', sinusHint: 'Pasa el cursor sobre un seno o su etiqueta para ver su nombre y anatomía. Los colores distinguen los tres grupos; la forma y el tamaño varían.' },
