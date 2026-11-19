@@ -1,9 +1,9 @@
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const SCRIPT_DIR = __dirname ?? fileURLToPath(new URL('.', import.meta.url));
+const SCRIPT_DIR = fileURLToPath(new URL('.', import.meta.url));
 const PROJECT_DIR = join(SCRIPT_DIR, '..');
 const DIST_DIR = join(PROJECT_DIR, 'dist');
 const port = Number(process.argv[2] ?? process.env.DEPLOY_RUN_PORT ?? 5000);
@@ -38,6 +38,8 @@ const server = createServer(async (req, res) => {
 
     let content;
     try {
+      const info = await stat(filePath);
+      if (info.isDirectory()) filePath = join(filePath, 'index.html');
       content = await readFile(filePath);
     } catch {
       // SPA fallback: serve the app shell (project builds a dedicated 404.html)
